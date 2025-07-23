@@ -34,3 +34,7 @@
 2025-07-20 04:59:37,752 - WARNING - Unexpected API response format for 17.07.2025
 2025-07-20 04:59:41,391 - ERROR - Failed to fetch data for 20.07.2025: HTTP 500
 2025-07-20 04:59:41,394 - INFO - Game data for 2025-07-09 to 2025-07-20 saved.
+2025-07-23 06:46:26,057 - WARNING - Unexpected API response format for 14.07.2025
+2025-07-23 06:46:29,520 - WARNING - Unexpected API response format for 16.07.2025
+2025-07-23 06:46:30,905 - WARNING - Unexpected API response format for 17.07.2025
+2025-07-23 06:46:37,731 - INFO - Game data for 2025-07-08 to 2025-07-21 saved.

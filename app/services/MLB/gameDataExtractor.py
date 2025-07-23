@@ -58,6 +58,9 @@ def extract_game_data_json(game):
         'status': game.get('status', ''),
     }
 
+    # if game_data['status'] != 'Final':
+    #     return None
+
     hometeam = game.get('hometeam', {})
     game_data.update({
         'home_team': hometeam.get('name', ''),
@@ -133,7 +136,7 @@ def run_game_data_collect_final():
     # Get yesterday and today as strings
     df = pd.read_csv(os.path.join(DATA_DIR, f'games_data_combined.csv'))
 
-    today = datetime.now().date()
+    today = datetime.now().date() 
     if df.shape[0] > 0:
         previous_fetched_date = df.iloc[-1]["date"]
 
@@ -151,3 +154,7 @@ def run_game_data_collect_final():
 
     # Call the function for yesterday only
     fetch_and_save_game_data(previous_fetched_date, today_str)
+
+
+if __name__ == '__main__':
+    run_game_data_collect_final()

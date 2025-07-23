@@ -15,8 +15,8 @@ def start_scheduler():
     # If you want to run the other script too, add another job:
     # scheduler.add_job(run_data_collect_final, CronTrigger(hour=0, minute=30))
 
-    scheduler.add_job(run_batting_pitching_data_collect_final, CronTrigger(hour=0, minute=0))
-    scheduler.add_job(run_game_data_collect_final, CronTrigger(hour=0, minute=30))
+    scheduler.add_job(run_batting_pitching_data_collect_final, CronTrigger(hour=22, minute=0))
+    scheduler.add_job(run_game_data_collect_final, CronTrigger(hour=22, minute=30))
 
     scheduler.start()
     atexit.register(lambda: scheduler.shutdown())

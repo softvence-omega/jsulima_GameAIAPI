@@ -219,7 +219,8 @@ def run_batting_pitching_data_collect_final():
     else:
         previous_fetched_date = "2010-01-01"  # Default start date if file doesn't exist or is empty
 
-    current_date = datetime.today().date().strftime("%Y-%m-%d")
+    current_date = datetime.today().date()  # Collect data up to yesterday
+    current_date = current_date.strftime("%Y-%m-%d")
     
     print(f"Collecting data from {previous_fetched_date} to {current_date}")
     extract_pitcher_and_batter_data(previous_fetched_date, current_date)
