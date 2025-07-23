@@ -1,0 +1,36 @@
+2025-07-20 02:01:48,171 - INFO - Game data for 2025-07-19 to 2025-07-19 saved.
+2025-07-20 02:04:10,533 - INFO - Game data for 2025-07-18 to 2025-07-18 saved.
+2025-07-20 02:04:49,833 - INFO - Game data for 2025-07-18 to 2025-07-18 saved.
+2025-07-20 02:05:08,306 - INFO - Game data for 2025-07-18 to 2025-07-18 saved.
+2025-07-20 02:05:28,468 - INFO - Game data for 2025-07-18 to 2025-07-18 saved.
+2025-07-20 02:05:47,921 - INFO - Game data for 2025-07-18 to 2025-07-18 saved.
+2025-07-20 02:45:54,826 - INFO - Game data for 2025-07-19 to 2025-07-19 saved.
+2025-07-20 02:47:08,592 - INFO - Game data for 2025-07-19 to 2025-07-19 saved.
+2025-07-20 02:49:04,807 - WARNING - Unexpected API response format for 14.07.2025
+2025-07-20 02:49:09,795 - WARNING - Unexpected API response format for 16.07.2025
+2025-07-20 02:49:10,823 - WARNING - Unexpected API response format for 17.07.2025
+2025-07-20 02:49:21,271 - ERROR - Failed to fetch data for 20.07.2025: HTTP 500
+2025-07-20 02:49:21,272 - INFO - Game data for 2025-07-09 to 2025-07-20 saved.
+2025-07-20 02:54:13,679 - INFO - Game data for 2025-07-19 to 2025-07-19 saved.
+2025-07-20 04:08:39,345 - WARNING - Unexpected API response format for 14.07.2025
+2025-07-20 04:08:42,924 - WARNING - Unexpected API response format for 16.07.2025
+2025-07-20 04:08:43,925 - WARNING - Unexpected API response format for 17.07.2025
+2025-07-20 04:08:49,756 - ERROR - Failed to fetch data for 20.07.2025: HTTP 500
+2025-07-20 04:08:49,759 - INFO - Game data for 2025-07-08 to 2025-07-20 saved.
+2025-07-20 04:15:09,704 - ERROR - Failed to fetch data for 20.07.2025: HTTP 500
+2025-07-20 04:15:09,705 - INFO - Game data for 2025-07-18 to 2025-07-20 saved.
+2025-07-20 04:18:24,322 - WARNING - Unexpected API response format for 14.07.2025
+2025-07-20 04:18:32,155 - WARNING - Unexpected API response format for 16.07.2025
+2025-07-20 04:18:35,160 - WARNING - Unexpected API response format for 17.07.2025
+2025-07-20 04:18:47,138 - ERROR - Failed to fetch data for 20.07.2025: HTTP 500
+2025-07-20 04:18:47,141 - INFO - Game data for 2025-07-14 to 2025-07-20 saved.
+2025-07-20 04:30:32,986 - WARNING - Unexpected API response format for 14.07.2025
+2025-07-20 04:30:40,392 - WARNING - Unexpected API response format for 16.07.2025
+2025-07-20 04:30:45,541 - WARNING - Unexpected API response format for 17.07.2025
+2025-07-20 04:30:58,596 - ERROR - Failed to fetch data for 20.07.2025: HTTP 500
+2025-07-20 04:30:58,599 - INFO - Game data for 2025-06-28 to 2025-07-20 saved.
+2025-07-20 04:59:34,416 - WARNING - Unexpected API response format for 14.07.2025
+2025-07-20 04:59:36,565 - WARNING - Unexpected API response format for 16.07.2025
+2025-07-20 04:59:37,752 - WARNING - Unexpected API response format for 17.07.2025
+2025-07-20 04:59:41,391 - ERROR - Failed to fetch data for 20.07.2025: HTTP 500
+2025-07-20 04:59:41,394 - INFO - Game data for 2025-07-09 to 2025-07-20 saved.
