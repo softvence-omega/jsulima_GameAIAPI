@@ -65,7 +65,7 @@ def extract_player_data(json_data, fallback_date=""):
             game_id = safe_get(match, "id")
             match_date = convert_date_format(safe_get(match, "date", fallback_date))
             if not match_date:
-                print(f"Skipping game {game_id}: Invalid or missing date")
+                # print(f"Skipping game {game_id}: Invalid or missing date")
                 continue
             hometeam = safe_get(match["hometeam"], "name")
             awayteam = safe_get(match["awayteam"], "name")
@@ -190,7 +190,8 @@ def extract_pitcher_and_batter_data(start_date, end_date):
                 pass
                 #print(f"No data to append for {game_date}")
         else:
-            print(f"Failed to fetch data for {game_date}: Status code {response.status_code}")
+            # print(f"Failed to fetch data for {game_date}: Status code {response.status_code}")
+            pass 
         
         start_date += timedelta(days=1)
 
@@ -222,9 +223,9 @@ def run_batting_pitching_data_collect_final():
     current_date = datetime.today().date()  # Collect data up to yesterday
     current_date = current_date.strftime("%Y-%m-%d")
     
-    print(f"Collecting data from {previous_fetched_date} to {current_date}")
+    # print(f"Collecting data from {previous_fetched_date} to {current_date}")
     extract_pitcher_and_batter_data(previous_fetched_date, current_date)
-    print("Data successfully appended to batting.csv, pitching.csv, and fielding.csv")
+    # print("Data successfully appended to batting.csv, pitching.csv, and fielding.csv")
 
 if __name__ == "__main__":
     run_batting_pitching_data_collect_final()

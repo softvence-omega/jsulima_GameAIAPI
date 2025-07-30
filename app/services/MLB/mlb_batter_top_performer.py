@@ -147,24 +147,25 @@ if __name__ == "__main__":
     model_path = get_model_path()
 
     if os.path.exists(model_path):
-        print(f"Loading model from {model_path}")
+        #print(f"Loading model from {model_path}")
         model = joblib.load(model_path)
         # Still need to load data for label encoder and prediction
         df, le, X_train, X_test, y_train, y_test = load_and_prepare_data(file_path)
     else:
-        print(f"Training model and saving to {model_path}")
+        #print(f"Training model and saving to {model_path}")
         df, le, X_train, X_test, y_train, y_test = load_and_prepare_data(file_path)
         model = train_model(X_train, y_train)
         joblib.dump(model, model_path)
 
     mse, r2, confidence_interval = predict_and_evaluate(model, X_test, y_test)
-    print(f"Model MSE: {mse}, R^2: {r2}, Confidence Interval: {confidence_interval}")
-    print("Available teams:", df['team'].unique())
+    #print(f"Model MSE: {mse}, R^2: {r2}, Confidence Interval: {confidence_interval}")
+    #print("Available teams:", df['team'].unique())
     valid_team = df['team'].unique()[0]
-    print(f"\nPredicting for team: {valid_team}")
+    #print(f"\nPredicting for team: {valid_team}")
     try:
         best_batsman = predict_best_batsman(valid_team, df, model, le)
-        print(best_batsman)
-        print(f"Best Batsman for {valid_team}: {best_batsman['player_name']} with predicted batting average {best_batsman['predicted_batting_average']}")
+        #print(best_batsman)
+        #print(f"Best Batsman for {valid_team}: {best_batsman['player_name']} with predicted batting average {best_batsman['predicted_batting_average']}")
     except Exception as e:
-        print(f"Prediction failed: {e}")
+        #print(f"Prediction failed: {e}")
+        raise e

@@ -25,7 +25,7 @@ class Upcomming_nfl_game:
 
         # 🧠 Adjust date range based on offseason
         if 3 <= current_month <= 6:
-            print("ℹ️ Offseason detected — looking up games starting July onward!")
+            # print("ℹ️ Offseason detected — looking up games starting July onward!")
             start_date = f"01.07.{current_season}"
             end_date = f"31.12.{current_season}"
         elif current_month < 7:
@@ -68,20 +68,21 @@ class Upcomming_nfl_game:
                             try:
                                 game_data.append(match)  # Just append the full match dict!
                             except Exception as e:
-                               print(f"Error processing match data: {e}")
+                                raise Exception(f"Error processing match data: {e}")
+                               #print(f"Error processing match data: {e}")
             return game_data
         except Exception as e:
-            print(f"Error fetching or processing NFL schedule: {e}")
+            #print(f"Error fetching or processing NFL schedule: {e}")
             return []
 
 if __name__ == "__main__":
     upcomming_nfl_game = Upcomming_nfl_game()
     games = upcomming_nfl_game.upcoming_games()
-    print("🏈 NFL Schedule for Upcoming Games")
-    print("-"*200)
-    print(type(games))
-    print(type(games[0]))
-    print("🏈 End of NFL schedule") 
-    print(len(games))
+    #print("🏈 NFL Schedule for Upcoming Games")
+    #print("-"*200)
+    #print(type(games))
+    #print(type(games[0]))
+    #print("🏈 End of NFL schedule") 
+    #print(len(games))
 
 

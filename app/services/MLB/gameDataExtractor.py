@@ -124,10 +124,10 @@ def fetch_and_save_game_data(start_date_str, end_date_str):
                 if rows:
                     append_to_csv(rows, games_csv, fields)
             else:
-                print("Failed to fetch data for ", date_str, ": HTTP ", response.status_code)
+                # print("Failed to fetch data for ", date_str, ": HTTP ", response.status_code)
                 logging.error(f"Failed to fetch data for {date_str}: HTTP {response.status_code}")
         except Exception as e:
-            print("Error fetching data for ", date_str, ": ", str(e))
+            # print("Error fetching data for ", date_str, ": ", str(e))
             logging.error(f"Error fetching data for {date_str}: {str(e)}")
     logging.info(f"Game data for {start_date_str} to {end_date_str} saved.")
 

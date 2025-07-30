@@ -35,10 +35,10 @@ class LiveGamePredictor:
 
     def predict_upcoming_games(self):
         try:
-            print("📅 Fetching upcoming NFL games...")
+            #print("📅 Fetching upcoming NFL games...")
             match_data = self.upcomming_game.upcoming_games()
             if not match_data:
-                print("⚠️ No upcoming games found.")
+                #print("⚠️ No upcoming games found.")
                 return []
 
             predictions = []
@@ -48,11 +48,12 @@ class LiveGamePredictor:
                     if prediction:
                         predictions.append(prediction)
                 except Exception as e:
-                    print(f"⚠️ Error predicting match {match.get('id', 'unknown')}: {e}")
+                    raise HTTPException(status_code=500, detail=f"Error predicting match {match.get('id', 'unknown')}: {str(e)}")
+                    #print(f"⚠️ Error predicting match {match.get('id', 'unknown')}: {e}")
 
             return self._sort_predictions(predictions)
         except Exception as e:
-            print(f"❌ Error predicting upcoming games: {e}")
+            #print(f"❌ Error predicting upcoming games: {e}")
             return []
 
     def _predict_match(self, match_data):
@@ -90,10 +91,10 @@ class LiveGamePredictor:
                 'away_team_rank': features.get('away_team_rank'),
                 'prediction': prediction,
             }
-            print(data)
+            #print(data)
             return data
         except Exception as e:
-            print(f"⚠️ Error predicting a scheduled match: {e}")
+            #print(f"⚠️ Error predicting a scheduled match: {e}")
             return None
 
     def _sort_predictions(self, predictions):
@@ -105,21 +106,22 @@ class LiveGamePredictor:
 
     def print_predictions(self, predictions):
         if not predictions:
-            print("⚠️ No predictions available.")
+            # print("⚠️ No predictions available.")
             return
 
-        print("\n🏈 Upcoming NFL Game Predictions:")
+        #print("\n🏈 Upcoming NFL Game Predictions:")
         for i, p in enumerate(predictions, 1):
-            print(f"\nGame {i}:")
-            print(f"  📆 Date                : {p['date']}")
-            print(f"  ⏰ Time                : {p['time']} ({p.get('venue', '')})")
-            print(f"  🏠 Home Team           : {p['home_team']} (Rank: {p['home_team_rank']})")
-            print(f"  🛫 Away Team           : {p['away_team']} (Rank: {p['away_team_rank']})")
-            print(f"  🎯 Predicted Winner    : {p['prediction']} (Confidence: {p['confidence']}%)")
-            print(f"  📈 Home Win Probability: {p['home_win_probability']}%")
-            print(f"  📉 Away Win Probability: {p['away_win_probability']}%")
-            print(f"  🔢 Predicted Score     : {p['home_team']} {p['home_predict_score']} - {p['away_predict_score']} {p['away_team']}")
-
+            #print(f"\nGame {i}:")
+            #print(f"  📆 Date                : {p['date']}")
+            #print(f"  ⏰ Time                : {p['time']} ({p.get('venue', '')})")
+            #print(f"  🏠 Home Team           : {p['home_team']} (Rank: {p['home_team_rank']})")
+            #print(f"  🛫 Away Team           : {p['away_team']} (Rank: {p['away_team_rank']})")
+            #print(f"  🎯 Predicted Winner    : {p['prediction']} (Confidence: {p['confidence']}%)")
+            #print(f"  📈 Home Win Probability: {p['home_win_probability']}%")
+            #print(f"  📉 Away Win Probability: {p['away_win_probability']}%")
+            #print(f"  🔢 Predicted Score     : {p['home_team']} {p['home_predict_score']} - {p['away_predict_score']} {p['away_team']}")
+            pass 
+        
 # 🧪 Run example
 if __name__ == "__main__":
     predictor = LiveGamePredictor()

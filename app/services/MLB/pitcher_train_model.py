@@ -20,7 +20,7 @@ def train_model():
     os.makedirs(csv_dir, exist_ok=True)
     csv_file_path = os.path.join(csv_dir, 'pitcher_stats_data(2010-2024).csv')
     df= pd.read_csv(csv_file_path)
-    print("columns in df------------------", df.columns)
+    #print"columns in df------------------", df.columns)
 
     df = p_processor.create_pitcher_features(df)
     feature_cols = p_processor.get_pitcher_feature_columns()
@@ -41,7 +41,7 @@ def train_model():
     # train test split
     features_train, features_test, labels_train, labels_test = train_test_split(X, labels_strikeouts, test_size=0.2, random_state=42)
     # X_scaled = X_scaled.fillna(0)  # Handle missing values
-    print( "training feature column----------", X.columns.tolist() )
+    #print "training feature column----------", X.columns.tolist() )
 
     # --- Train Regression Models (Score Prediction) ---
     innings_pitched_model = RandomForestRegressor(random_state=42)
@@ -54,10 +54,10 @@ def train_model():
 
     # --- Evaluate Models ---
     strikeouts_score = strikeouts_model.predict(features_test)
-    print("Strikeouts Model Evaluation:")
-    # print(f"  RMSE: {mean_squared_error(labels_test, strikeouts_score, squared=False):.2f}")
-    print(f"  MAE: {mean_absolute_error(labels_test, strikeouts_score):.2f}")
-    print(f"  R²: {r2_score(labels_test, strikeouts_score):.4f}")
+    #print"Strikeouts Model Evaluation:")
+    # #printf"  RMSE: {mean_squared_error(labels_test, strikeouts_score, squared=False):.2f}")
+    #printf"  MAE: {mean_absolute_error(labels_test, strikeouts_score):.2f}")
+    #printf"  R²: {r2_score(labels_test, strikeouts_score):.4f}")
 
 
     # --- Save Models ---
@@ -68,7 +68,7 @@ def train_model():
     joblib.dump(strikeouts_model, os.path.join(model_dir, 'mlb_strikeouts_regressor.pkl'))
     joblib.dump(earned_runs_model, os.path.join(model_dir, 'mlb_earned_runs_regressor.pkl'))
 
-    print(f"All models trained and saved to {model_dir}/")
+    #printf"All models trained and saved to {model_dir}/")
 
     return innings_pitched_model, strikeouts_model, earned_runs_model
 

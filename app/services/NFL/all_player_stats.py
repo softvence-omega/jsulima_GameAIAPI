@@ -142,4 +142,4 @@ def extract_all_player_stats():
 
 df = extract_all_player_stats()
 df.to_csv("all_player_stats.csv", index=False)
-print(df['rushing_yards'].value_counts())
+#printdf['rushing_yards'].value_counts())

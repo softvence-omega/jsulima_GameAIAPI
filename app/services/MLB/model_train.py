@@ -10,7 +10,7 @@ def train_historical_model():
     os.makedirs(dir, exist_ok=True)
     csv_file_path = os.path.join(dir, 'mlb_historical_data(2010-2024).csv')
     df= pd.read_csv(csv_file_path)
-    print("df------\n", df)
+    # print("df------\n", df)
      # Prepare inputs
     features = df.drop(['home_score', 'away_score', 'home_win'], axis=1)
     labels_home_win = df['home_win']
@@ -18,7 +18,7 @@ def train_historical_model():
     labels_away_score = df['away_score']
     # print("home_win value counts------\n", df['home_win'].value_counts())
     features = features.fillna(0)  # Handle missing values
-    print( "training feature column----------", features.columns.tolist() )
+    # print( "training feature column----------", features.columns.tolist() )
 
     # Train XGBoost (with probability output)
      # --- Train Classification Model (Home Win Probability) ---
@@ -44,7 +44,7 @@ def train_historical_model():
     joblib.dump(home_score_model, os.path.join(model_dir, 'mlb_home_score_regressor.pkl'))
     joblib.dump(away_score_model, os.path.join(model_dir, 'mlb_away_score_regressor.pkl'))
 
-    print(f"All models trained and saved to {model_dir}/")
+    # print(f"All models trained and saved to {model_dir}/")
 
     return clf_model, home_score_model, away_score_model
 

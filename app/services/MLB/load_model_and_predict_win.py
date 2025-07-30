@@ -18,7 +18,7 @@ try:
     winner_model = joblib.load(WINNER_MODEL_PATH)
     score_scaler = joblib.load(SCORE_SCALER_PATH)
     winner_scaler = joblib.load(WINNER_SCALER_PATH)
-    print("All models and scalers loaded successfully.")
+    ##print("All models and scalers loaded successfully.")
 except FileNotFoundError as e:
     raise {"error": f"A required file was not found: {e}. Please run the main training script first."}
 
@@ -42,7 +42,7 @@ def load_and_predict_outcome(home_team, away_team, year, team_stats_df, score_fe
     Returns:
         dict: A dictionary containing the full prediction details.
     """
-    #print(f"--- Predicting outcome for {home_team} vs. {away_team} for the {year} season ---")
+    ##print(f"--- Predicting outcome for {home_team} vs. {away_team} for the {year} season ---")
     try:
 
 
@@ -114,8 +114,8 @@ def win_prediction(home_team, away_team, prediction_year):
     
     # Load the pre-computed yearly team stats
     if not os.path.exists(TEAM_STATS_PATH):
-        print(f"Error: Required data file not found at '{TEAM_STATS_PATH}'")
-        print("Please run the main training script to generate and save this file.")
+        #print(f"Error: Required data file not found at '{TEAM_STATS_PATH}'")
+        #print("Please run the main training script to generate and save this file.")
         return
         
     team_stats_yearly = pd.read_csv(TEAM_STATS_PATH)

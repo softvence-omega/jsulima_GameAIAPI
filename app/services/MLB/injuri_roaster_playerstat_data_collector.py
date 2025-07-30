@@ -24,7 +24,7 @@ def _force_list(x):
 
 def extract_teams():
     """Extract team IDs and names from the standings data."""
-    print("\nExtracting team information...")
+    # print("\nExtracting team information...")
     team_ids = []
     url = f"{GOALSERVE_BASE_URL}{GOALSERVE_API_KEY}/baseball/mlb_standings?json=1"
 
@@ -49,17 +49,19 @@ def extract_teams():
                     team_name = team.get("@name")
                     if team_id and team_name:  # Only add if both ID and name exist
                         teams.append((team_id, team_name))
-                        print(f"Found team: {team_name} (ID: {team_id})")
+                        # print(f"Found team: {team_name} (ID: {team_id})")
 
         if not teams:
-            print("Warning: No teams found in the standings data")
+            # print("Warning: No teams found in the standings data")
+            pass 
         else:
-            print(f"\nSuccessfully extracted {len(teams)} teams")
+            # print(f"\nSuccessfully extracted {len(teams)} teams")
+            pass 
             
         return teams
 
     except Exception as e:
-        print(f"Error extracting teams: {str(e)}")
+        # print(f"Error extracting teams: {str(e)}")
         return []
 
 def extract_injury_report(team_id):
@@ -192,15 +194,15 @@ def fetch_roster_data(team_id):
     }
     
     # Debug print
-    print(f"Team data keys: {team_data.keys()}")
+    # print(f"Team data keys: {team_data.keys()}")
     
     positions = _force_list(team_data.get('position', []))
-    print(f"Found {len(positions)} position groups")
+    # print(f"Found {len(positions)} position groups")
     rosters= []
     for position in positions:
         position_name = position.get('@name', '')
         players = _force_list(position.get('player', []))
-        print(f"Found {len(players)} players in position {position_name}")
+        # print(f"Found {len(players)} players in position {position_name}")
         
         for player in players:
             player_data = {
@@ -224,10 +226,10 @@ def fetch_roster_data(team_id):
 
 def fetch_injury_data():
     """Fetch and process injury data for all teams."""
-    print("\nFetching injury data...")
+    # print("\nFetching injury data...")
     teams = extract_teams()
     if not teams:
-        print("No teams found to process injuries")
+        #print("No teams found to process injuries")
         return pd.DataFrame()
         
     all_injuries = []
@@ -241,12 +243,12 @@ def fetch_injury_data():
             data = res.json()
             team_data = data.get('team', {})
             
-            # Debug print
-            print(f"\nProcessing injuries for team: {team_name}")
-            print(f"Team data keys: {team_data.keys()}")
+            # Debug #print
+            #print(f"\nProcessing injuries for team: {team_name}")
+            #print(f"Team data keys: {team_data.keys()}")
             
             injuries = _force_list(team_data.get('report', []))
-            print(f"Found {len(injuries)} injuries")
+            #print(f"Found {len(injuries)} injuries")
             
             for injury in injuries:
                 injury_data = {
@@ -261,19 +263,20 @@ def fetch_injury_data():
                 all_injuries.append(injury_data)
                 
         except Exception as e:
-            print(f"Error fetching injuries for team {team_name}: {str(e)}")
+            #print(f"Error fetching injuries for team {team_name}: {str(e)}")
             continue
     
     df = pd.DataFrame(all_injuries)
     if not df.empty:
-        print(f"\nSuccessfully collected {len(df)} injury records")
-        print("Sample of injury data:")
-        print(df[['team_name', 'player_name', 'status', 'description']].head())
+        pass 
+        ##print(f"\nSuccessfully collected {len(df)} injury records")
+        ##print("Sample of injury data:")
+        ##print(df[['team_name', 'player_name', 'status', 'description']].head())
     return df
 
 def fetch_standings_data():
     """Fetch and process standings data."""
-    print("\nFetching standings data...")
+    #print("\nFetching standings data...")
     standings_data = []
     
     try:
@@ -313,7 +316,8 @@ def fetch_standings_data():
                     standings_data.append(team_data)
                     
     except Exception as e:
-        print(f"Error fetching standings: {str(e)}")
+        pass 
+        #print(f"Error fetching standings: {str(e)}")
     return pd.DataFrame(standings_data)
 
 def extract_all_player_stats():
@@ -333,11 +337,11 @@ def extract_all_player_stats():
             res.raise_for_status()
             
             data = res.json()
-            print(f"\nProcessing {endpoint}")
+            #print(f"\nProcessing {endpoint}")
             
             # Check if we have the expected data structure
             if "statistic" not in data:
-                print(f"Warning: No 'statistic' key in response for {endpoint}")
+                #print(f"Warning: No 'statistic' key in response for {endpoint}")
                 continue
                 
             # Extract the category name from the endpoint
@@ -346,17 +350,17 @@ def extract_all_player_stats():
             # Get the category data
             category_data = data.get("statistic", {}).get("category", {})
             if not category_data:
-                print(f"Warning: No category data found for {endpoint}")
+                #print(f"Warning: No category data found for {endpoint}")
                 continue
                 
             # Handle both single and multiple player cases
             players = _force_list(category_data.get("player", []))
             
             if not players:
-                print(f"Warning: No players found in response for {endpoint}")
+                #print(f"Warning: No players found in response for {endpoint}")
                 continue
                 
-            print(f"Found {len(players)} players for {endpoint}")
+            #print(f"Found {len(players)} players for {endpoint}")
             
             # Get expected fields for this category
             expected_fields = get_category_fields(category)
@@ -384,21 +388,23 @@ def extract_all_player_stats():
                 rows.append(flat_player)
                 
         except requests.exceptions.RequestException as e:
-            print(f"Request error for {endpoint}: {str(e)}")
+            #print(f"Request error for {endpoint}: {str(e)}")
             continue
         except Exception as e:
-            print(f"Unexpected error for {endpoint}: {str(e)}")
+            #print(f"Unexpected error for {endpoint}: {str(e)}")
             continue
 
     # Convert to DataFrame
     df = pd.DataFrame(rows)
     
     if df.empty:
-        print("\nWarning: No data was collected from any endpoint!")
+        pass 
+        #print("\nWarning: No data was collected from any endpoint!")
     else:
-        print(f"\nSuccessfully collected {len(df)} total records")
-        print("\nColumns in the dataset:")
-        print(df.columns.tolist())
+        pass 
+        #print(f"\nSuccessfully collected {len(df)} total records")
+        #print("\nColumns in the dataset:")
+        #print(df.columns.tolist())
         
     return df
 
@@ -413,13 +419,13 @@ def main():
     if not stats_df.empty:
         stats_path = os.path.join(csv_dir, "mlb_player_stats.csv")
         stats_df.to_csv(stats_path, index=False)
-        print(f"\nPlayer stats saved to {stats_path}")
+        #print(f"\nPlayer stats saved to {stats_path}")
     
     # Fetch roster data
-    print("\nFetching roster data...")
+    #print("\nFetching roster data...")
     teams = extract_teams()
     if not teams:
-        print("No teams found to process rosters")
+        #print("No teams found to process rosters")
         return pd.DataFrame()
         
     all_rosters = []
@@ -429,35 +435,35 @@ def main():
             res = fetch_roster_data(team_id)
             all_rosters.append(res)
         except Exception as e:
-            print(f"Error fetching roster for team {team_name}: {str(e)}")
+            #print(f"Error fetching roster for team {team_name}: {str(e)}")
             continue 
     roster_df = pd.DataFrame(all_rosters)
 
     if not roster_df.empty:
         roster_path = os.path.join(csv_dir, "mlb_rosters.csv")
         roster_df.to_csv(roster_path, index=False)
-        print(f"Roster data saved to {roster_path}")
+        #print(f"Roster data saved to {roster_path}")
     
     # Fetch injury data
     injury_df = fetch_injury_data()
     if not injury_df.empty:
         injury_path = os.path.join(csv_dir, "mlb_injuries.csv")
         injury_df.to_csv(injury_path, index=False)
-        print(f"Injury data saved to {injury_path}")
+        #print(f"Injury data saved to {injury_path}")
     
     # Fetch standings data
     standings_df = fetch_standings_data()
     if not standings_df.empty:
         standings_path = os.path.join(csv_dir, "mlb_standings.csv")
         standings_df.to_csv(standings_path, index=False)
-        print(f"Standings data saved to {standings_path}")
+        #print(f"Standings data saved to {standings_path}")
     
-    # Print summary
-    print("\nData Collection Summary:")
-    print(f"Player Stats Records: {len(stats_df) if not stats_df.empty else 0}")
-    print(f"Roster Records: {len(roster_df) if not roster_df.empty else 0}")
-    print(f"Injury Records: {len(injury_df) if not injury_df.empty else 0}")
-    print(f"Standings Records: {len(standings_df) if not standings_df.empty else 0}")
+    # #print summary
+    #print("\nData Collection Summary:")
+    #print(f"Player Stats Records: {len(stats_df) if not stats_df.empty else 0}")
+    #print(f"Roster Records: {len(roster_df) if not roster_df.empty else 0}")
+    #print(f"Injury Records: {len(injury_df) if not injury_df.empty else 0}")
+    #print(f"Standings Records: {len(standings_df) if not standings_df.empty else 0}")
 
 if __name__ == "__main__":
     main()

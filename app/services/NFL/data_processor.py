@@ -28,12 +28,12 @@ class NflDataProcessor:
             data = xml_to_json(url)
             if not data:
                 self.logger.warning(f"Empty response from endpoint: {endpoint}")
-                print(f"Empty response for URL: {url}")
+                #printf"Empty response for URL: {url}")
                 return {}
             return data
         except Exception as e:
             self.logger.error(f"Error fetching data from {url}: {str(e)}")
-            print(f"Error fetching data from {url}: {str(e)}")
+            #printf"Error fetching data from {url}: {str(e)}")
             return {}
     
     def get_todays_games(self) -> dict:
@@ -203,12 +203,13 @@ class NflDataProcessor:
                             }
                             teams_data.append(team_data)
                         except Exception as e:
-                            print(f"[WARNING] Skipping team due to error: {e}")
+                            raise ValueError(f"Error processing team data: {team}") from e
+                            #printf"[WARNING] Skipping team due to error: {e}")
 
             return teams_data
 
         except Exception as e:
-            print(f"[ERROR] Failed to extract standings features: {e}")
+            # print(f"[ERROR] Failed to extract standings features: {e}")
             return []
 
     def extract_events(self, events_data: dict) -> dict:

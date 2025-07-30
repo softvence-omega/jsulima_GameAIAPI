@@ -44,17 +44,17 @@ def train_regressors(X_train, y_home_train, y_away_train):
 def evaluate_classifier(model, X_test, y_test):
     y_pred = model.predict(X_test)
     acc = accuracy_score(y_test, y_pred)
-    print(f"🏆 Accuracy: {acc:.2%}")
-    print("\nConfusion Matrix:\n", confusion_matrix(y_test, y_pred))
-    print("\nClassification Report:\n", classification_report(y_test, y_pred))
+    #printf"🏆 Accuracy: {acc:.2%}")
+    #print"\nConfusion Matrix:\n", confusion_matrix(y_test, y_pred))
+    #print"\nClassification Report:\n", classification_report(y_test, y_pred))
 
 def save_model(model, filename):
     joblib.dump(model, filename)
-    print(f"💾 Model saved successfully: {filename}")
+    #printf"💾 Model saved successfully: {filename}")
 
 def save_feature_columns(feature_cols, filename):
     joblib.dump(feature_cols, filename)
-    print(f"💾 Feature columns saved successfully: {filename}")
+    #printf"💾 Feature columns saved successfully: {filename}")
 
 def train_and_evaluate(csv_path):
     df = load_data(csv_path)
@@ -85,4 +85,5 @@ if __name__ == "__main__":
     try:
         train_and_evaluate(csv_path)
     except Exception as e:
-        print(f"❌ Error: {e}")
+        #printf"❌ Error: {e}")
+        raise RuntimeError(f"Failed to train and evaluate model: {e}") from e

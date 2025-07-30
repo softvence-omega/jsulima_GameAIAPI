@@ -79,8 +79,10 @@ if __name__ == "__main__":
     away = input("Enter away team name: ")
     try:
         result = predict_head_to_head_win_probability(home, away)
-        print("\nPrediction Result:")
+        #print"\nPrediction Result:")
         for k, v in result.items():
-            print(f"{k}: {v}")
+            #printf"{k}: {v}")
+            pass 
     except Exception as e:
-        print(f"Error: {e}") 
+        #printf"Error: {e}") 
+        raise ValueError(f"Failed to predict matchup: {e}") from e

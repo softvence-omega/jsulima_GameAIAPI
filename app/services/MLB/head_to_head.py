@@ -10,7 +10,7 @@ def fetch_head_to_head_teams(team1_name, team2_name):
     # file_path =  os.path.join(csv_dir , "games_data(2010-2024).csv")
     file_path = os.path.join(csv_dir, 'game_data', "games_data_combined.csv")
  
-    print(f"📂 Looking for file at: {file_path}")
+    # print(f"📂 Looking for file at: {file_path}")
 
     # Load the data
     df = pd.read_csv(file_path)
@@ -53,8 +53,10 @@ if __name__ == "__main__":
     last_5_match_list = fetch_head_to_head_teams(team1, team2)
 
     if last_5_match_list is not None and len(last_5_match_list) > 0:
-        print("\n🏈 Last 5 H2H matches between {} and {}:\n".format(team1, team2))
+        # print("\n🏈 Last 5 H2H matches between {} and {}:\n".format(team1, team2))
         for match in last_5_match_list:
-            print(match)
+            # print(match)
+            pass 
     else:
-        print("❌ No match data to display!")
+        # print("❌ No match data to display!")
+        pass 

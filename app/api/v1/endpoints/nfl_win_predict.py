@@ -17,10 +17,13 @@ router = APIRouter()
 #         raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.get("/head-to-head-win-prediction")
-def head_to_head_win():
+@router.post("/head-to-head-win-prediction")
+def head_to_head_win(n : int = 0):
     upcoming_games = upcoming_nfl_games.upcoming_games()
-
+    if n > 0:
+        n = min(n, len(upcoming_games))
+        upcoming_games = upcoming_games[:n]
+        
     upcoming_games_pred = []
     for game in upcoming_games:
 

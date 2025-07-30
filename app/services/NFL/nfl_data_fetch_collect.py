@@ -47,10 +47,10 @@ def fetch_historical_nfl_data_by_year(start_year: int, end_year: int = None) -> 
                     games = [games]
 
                 for i, game in enumerate(games):
-                    print(f"Fetching match {i} on {date_str}")
-                    print(f"Game type: {type(game)}, Game content: {game}")
+                    #printf"Fetching match {i} on {date_str}")
+                    #printf"Game type: {type(game)}, Game content: {game}")
                     if not isinstance(game, dict):
-                        print(f"⚠️ Skipping non-dict game object at index {i}: {game}")
+                        #printf"⚠️ Skipping non-dict game object at index {i}: {game}")
                         continue
                     features = processor.extract_predictive_features(game)
                 
@@ -62,7 +62,7 @@ def fetch_historical_nfl_data_by_year(start_year: int, end_year: int = None) -> 
                         features['home_win'] = 1 if home_score > away_score else 0
                         historical_features.append(features)
         except Exception as e:
-            print(f"Error on {date_str}: {e}")
+            #printf"Error on {date_str}: {e}")
             continue
 
     df = pd.DataFrame(historical_features)
@@ -70,20 +70,20 @@ def fetch_historical_nfl_data_by_year(start_year: int, end_year: int = None) -> 
     if not df.empty and 'home_win' not in df.columns:
         df['home_win'] = (df['home_score'] > df['away_score']).astype(int)
 
-    print("✅ DataFrame shape:", df.shape)
-    print(df.head())
+    #print"✅ DataFrame shape:", df.shape)
+    #printdf.head())
 
     filename = f"team_historical_data_{start_year}_to_{end_year}.csv" if start_year != end_year else f"team_historical_data_{start_year}.csv"
     csv_path = os.path.join(config.NFL_DIR, filename)
     df.to_csv(csv_path, index=False)
-    print(f"✅ Saved CSV to: {csv_path}")
+    #printf"✅ Saved CSV to: {csv_path}")
 
     return df
 
 
 def train_and_evaluate_model(df: pd.DataFrame):
     if df.empty:
-        print("❌ Empty dataset. Training aborted.")
+        #print"❌ Empty dataset. Training aborted.")
         return
 
     # Targets
@@ -103,7 +103,7 @@ def train_and_evaluate_model(df: pd.DataFrame):
 
     # Save feature columns for later use
     joblib.dump(feature_cols, os.path.join(model_dir, 'model_features.pkl'))
-    print(f"✅ Saved feature columns to: {os.path.join(model_dir, 'model_features.pkl')}")
+    #printf"✅ Saved feature columns to: {os.path.join(model_dir, 'model_features.pkl')}")
     X = df[feature_cols]
     y_class = df[target_class]
     y_home = df[target_home_score]
@@ -129,9 +129,9 @@ def train_and_evaluate_model(df: pd.DataFrame):
     mse_home = mean_squared_error(y_home_test, reg_home.predict(X_test))
     mse_away = mean_squared_error(y_away_test, reg_away.predict(X_test))
 
-    print(f"[🏈 home_win] Accuracy: {acc:.4f}")
-    print(f"[🏠 home_score] MSE: {mse_home:.2f}")
-    print(f"[🚗 away_score] MSE: {mse_away:.2f}")
+    #printf"[🏈 home_win] Accuracy: {acc:.4f}")
+    #printf"[🏠 home_score] MSE: {mse_home:.2f}")
+    #printf"[🚗 away_score] MSE: {mse_away:.2f}")
 
     # Save models
     model_dir = os.path.join(config.NFL_DIR, "models")
@@ -140,7 +140,7 @@ def train_and_evaluate_model(df: pd.DataFrame):
     joblib.dump(reg_home, os.path.join(model_dir, 'model_home_score.pkl'))
     joblib.dump(reg_away, os.path.join(model_dir, 'model_away_score.pkl'))
 
-    print(f"✅ Models saved to: {model_dir}")
+    #printf"✅ Models saved to: {model_dir}")
     return clf, reg_home, reg_away
 
 # ----------------------------
@@ -156,4 +156,4 @@ if __name__ == "__main__":
     # Or fetch for multiple years e.g., 2021 to 2023
     # df = fetch_historical_nfl_data_by_year(2021, 2023)
 
-    print(df.head())
+    #printdf.head())

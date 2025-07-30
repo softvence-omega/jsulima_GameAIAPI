@@ -19,7 +19,7 @@ class LiveGamePredictor:
 
     def predict_todays_games(self):
         today = datetime.now().strftime("%d.%m.%Y")
-        print(f"📅 Fetching NFL games for today: {today}")
+        #printf"📅 Fetching NFL games for today: {today}")
 
         try:
             games_data = self.data_processor.fetch_data("football/nfl-scores")
@@ -74,33 +74,34 @@ class LiveGamePredictor:
                             })
 
                     except Exception as e:
-                        print(f"⚠️ Error predicting a game: {str(e)}")
+                        #printf"⚠️ Error predicting a game: {str(e)}")
                         continue
 
             return sorted(predictions, key=lambda x: x['confidence'], reverse=True)
 
         except Exception as e:
-            print(f"❌ Error fetching today's games: {str(e)}")
+            #printf"❌ Error fetching today's games: {str(e)}")
             return []
 
     def print_predictions(self, predictions):
         if not predictions:
-            print("⚠️ No games found or predictions failed.")
+            #print"⚠️ No games found or predictions failed.")
             return
 
-        print("\n🏈 Today's NFL Game Predictions:")
+        #print"\n🏈 Today's NFL Game Predictions:")
         for i, p in enumerate(predictions, 1):
-            print(f"\nGame {i}:")
-            print(f"  📆 Date                : {p['date']}")
-            print(f"  ⏰ Time                : {p['time']}")
-            print(f"  🏟️ Venue               : {p['venue']} (ID: {p['venue_id']})")
-            print(f"  🏠 Home Team           : {p['home_team']} (Rank: {p['home_team_rank']})")
-            print(f"  🛫 Away Team           : {p['away_team']} (Rank: {p['away_team_rank']})")
-            print(f"  🎯 Predicted Winner    : {p['prediction']}")
-            print(f"  📈 Home Win Probability: {p['home_win_probability']}%")
-            print(f"  📉 Away Win Probability: {p['away_win_probability']}%")
-            print(f"  🔢 Predicted Score     : {p['home_team']} {p['home_predict_score']} - {p['away_predict_score']} {p['away_team']}")
-            print(f"  ✅ Confidence Level    : {p['confidence']}%")
+            #printf"\nGame {i}:")
+            #printf"  📆 Date                : {p['date']}")
+            #printf"  ⏰ Time                : {p['time']}")
+            #printf"  🏟️ Venue               : {p['venue']} (ID: {p['venue_id']})")
+            #printf"  🏠 Home Team           : {p['home_team']} (Rank: {p['home_team_rank']})")
+            #printf"  🛫 Away Team           : {p['away_team']} (Rank: {p['away_team_rank']})")
+            #printf"  🎯 Predicted Winner    : {p['prediction']}")
+            #printf"  📈 Home Win Probability: {p['home_win_probability']}%")
+            #printf"  📉 Away Win Probability: {p['away_win_probability']}%")
+            #printf"  🔢 Predicted Score     : {p['home_team']} {p['home_predict_score']} - {p['away_predict_score']} {p['away_team']}")
+            #printf"  ✅ Confidence Level    : {p['confidence']}%")
+            pass 
 
 # 🧪 Example usage
 if __name__ == "__main__":

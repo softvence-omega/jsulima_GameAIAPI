@@ -29,7 +29,7 @@ def train_model():
     # train test split
     features_train, features_test, labels_train, labels_test = train_test_split(features, labels_hits, test_size=0.2, random_state=42)
     features = features.fillna(0)  # Handle missing values
-    print( "training feature column----------", features.columns.tolist() )
+    #print( "training feature column----------", features.columns.tolist() )
 
     # Initialize models
     hits_model = XGBRegressor(objective="reg:squarederror", random_state=42)
@@ -43,10 +43,10 @@ def train_model():
 
       # --- Evaluate Models ---
     hits_pred = hits_model.predict(features_test)
-    print("hits Model Evaluation:")
+    #print("hits Model Evaluation:")
     # print(f"  RMSE: {mean_squared_error(labels_test, strikeouts_score, squared=False):.2f}")
-    print(f"  MAE: {mean_absolute_error(labels_test, hits_pred):.2f}")
-    print(f"  R²: {r2_score(labels_test, hits_pred):.4f}")
+    #print(f"  MAE: {mean_absolute_error(labels_test, hits_pred):.2f}")
+    # print(f"  R²: {r2_score(labels_test, hits_pred):.4f}")
 
     # Save models
     model_dir = "models/MLB/batters"
@@ -56,7 +56,7 @@ def train_model():
     joblib.dump(home_runs_model, os.path.join(model_dir, 'home_runs_regressor.pkl'))
     joblib.dump(rbis_model, os.path.join(model_dir, 'rbis_regressor.pkl'))
 
-    print(f"All models trained and saved to {model_dir}/")
+    # print(f"All models trained and saved to {model_dir}/")
 
     return hits_model, home_runs_model, rbis_model
 

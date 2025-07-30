@@ -159,7 +159,8 @@ def predict():
 
             predictions.append(prediction)
         except Exception as e:
-            print(f"⚠️ Error predicting match {home_team} vs {away_team}: {e}")
+            # print(f"⚠️ Error predicting match {home_team} vs {away_team}: {e}")
+            raise HTTPException(status_code=500, detail=f"Error predicting match {home_team} vs {away_team}: {str(e)}")
 
     return predictions
 

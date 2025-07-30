@@ -204,7 +204,7 @@ class PlayerDataProcessor:
                     total_games += games
                     count += 1
                 except Exception as e:
-                    print(f"Error parsing player: {e}")
+                    # print(f"Error parsing player: {e}")
                     continue
 
             if count == 0 or total_games == 0:

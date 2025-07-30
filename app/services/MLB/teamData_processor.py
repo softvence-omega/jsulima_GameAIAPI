@@ -89,7 +89,8 @@ class BaseballDataProcessor:
                         
                 
         except Exception as e:
-            print(f"[Standing Parsing Error] {e}")
+            #printf"[Standing Parsing Error] {e}")
+            raise ValueError(f"Error parsing standings data: {str(e)}")
 
         return 0.5, 15  # Default fallback
     
@@ -165,7 +166,7 @@ class BaseballDataProcessor:
             return features
 
         except Exception as e:
-            print(f"Error extracting features: {str(e)}")
+            #printf"Error extracting features: {str(e)}")
             return {}
 
     def _get_late_inning_runs(self, game_data, team_type):
@@ -254,14 +255,14 @@ class BaseballDataProcessor:
                     }
                     records.append(record)
                 except Exception as e:
-                    print(f"Error processing batter {player.get('@name', 'Unknown')}: {e}")
+                    #printf"Error processing batter {player.get('@name', 'Unknown')}: {e}")
                     continue
                     
             df = pd.DataFrame(records)
             return df
             
         except Exception as e:
-            print(f"Error processing batting data: {e}")
+            #printf"Error processing batting data: {e}")
             return pd.DataFrame()
     
     def innings_to_float(self, innings_str):
@@ -282,7 +283,7 @@ class BaseballDataProcessor:
         try:
             players = data['statistic']['category']['player']
         except KeyError:
-            print("Pitcher data not found.")
+            #print"Pitcher data not found.")
             return pd.DataFrame()
 
         records = []
@@ -304,7 +305,7 @@ class BaseballDataProcessor:
                     "whip": safe_float(player.get("@whip", 1.50))
                 })
             except Exception as e:
-                print(f"Error processing pitcher {player.get('@name', 'Unknown')}: {e}")
+                #printf"Error processing pitcher {player.get('@name', 'Unknown')}: {e}")
                 continue
         df = pd.DataFrame(records)
         return df

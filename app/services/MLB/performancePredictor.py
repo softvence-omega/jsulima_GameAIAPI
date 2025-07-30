@@ -43,7 +43,7 @@ class BaseballPerformancePredictor:
         
         # Train models for each target
         for target in self.batter_targets:
-            print(f"Training batter model for {target}...")
+            #print(f"Training batter model for {target}...")
             
             y = df[target].fillna(0)
             
@@ -70,15 +70,15 @@ class BaseballPerformancePredictor:
             
             self.batter_models[target] = model
             
-            # Print feature importance
+            # #print feature importance
             importance = pd.DataFrame({
                 'feature': feature_cols,
                 'importance': model.feature_importances_
             }).sort_values('importance', ascending=False)
             
-            print(f"Top 5 features for {target}:")
-            print(importance.head().to_string(index=False))
-            print()
+            #print(f"Top 5 features for {target}:")
+            #print(importance.head().to_string(index=False))
+            #print()
     
     def train_pitcher_models(self, df):
         """Train XGBoost models for pitcher predictions"""
@@ -95,7 +95,7 @@ class BaseballPerformancePredictor:
         
         # Train models for each target
         for target in self.pitcher_targets:
-            print(f"Training pitcher model for {target}...")
+            #print(f"Training pitcher model for {target}...")
             
             y = df[target].fillna(df[target].median())
             
@@ -128,9 +128,9 @@ class BaseballPerformancePredictor:
                 'importance': model.feature_importances_
             }).sort_values('importance', ascending=False)
             
-            print(f"Top 5 features for {target}:")
-            print(importance.head().to_string(index=False))
-            print()
+            #print(f"Top 5 features for {target}:")
+            #print(importance.head().to_string(index=False))
+            #print()
     
     def predict_batter_performance(self, df):
         """Predict batter performance for upcoming games"""
@@ -254,12 +254,12 @@ class BaseballPerformancePredictor:
                     game_data, pitcher_stats, batter_stats= extract_data(game)
                     game_df= pd.DataFrame([game_data])
                     pitcher_df= pd.DataFrame([pitcher_stats])
-                    print("pitcher df------------------\n", pitcher_df)
+                    #print("pitcher df------------------\n", pitcher_df)
                     batter_df= pd.DataFrame([batter_stats])
 
                     # extract feature
-                    print( self.predict_batter_performance(batter_df) )
-                    print( self.predict_pitcher_performance(pitcher_df) )
+                    #print( self.predict_batter_performance(batter_df) )
+                    #print( self.predict_pitcher_performance(pitcher_df) )
                     flag=1
                     break
             if flag==0:
@@ -309,29 +309,29 @@ def create_sample_predictions():
         'sale_chris': {'innings_pitched': 6.0, 'strikeouts': 6, 'earned_runs': 4, 'confidence': 70}
     }
     
-    print("=== BASEBALL PERFORMANCE PREDICTIONS ===\n")
+    #print("=== BASEBALL PERFORMANCE PREDICTIONS ===\n")
     
-    print("BATTER PREDICTIONS:")
-    print("-" * 50)
+    #print("BATTER PREDICTIONS:")
+    #print("-" * 50)
     for _, batter in sample_batters.iterrows():
         pred = batter_predictions[batter['player_id']]
-        print(f"{batter['player_name']} ({batter['position']}) - {batter['team']}")
-        print(f"  Predicted Hits: {pred['hits']}")
-        print(f"  Predicted Home Runs: {pred['home_runs']}")
-        print(f"  Predicted RBIs: {pred['rbis']}")
-        print(f"  Confidence: {pred['confidence']}%")
-        print()
+        #print(f"{batter['player_name']} ({batter['position']}) - {batter['team']}")
+        #print(f"  Predicted Hits: {pred['hits']}")
+        #print(f"  Predicted Home Runs: {pred['home_runs']}")
+        #print(f"  Predicted RBIs: {pred['rbis']}")
+        #print(f"  Confidence: {pred['confidence']}%")
+        #print()
     
-    print("PITCHER PREDICTIONS:")
-    print("-" * 50)
+    #print("PITCHER PREDICTIONS:")
+    #print("-" * 50)
     for _, pitcher in sample_pitchers.iterrows():
         pred = pitcher_predictions[pitcher['player_id']]
-        print(f"{pitcher['player_name']} ({pitcher['position']}) - {pitcher['team']}")
-        print(f"  Predicted Innings Pitched: {pred['innings_pitched']}")
-        print(f"  Predicted Strikeouts: {pred['strikeouts']}")
-        print(f"  Predicted Earned Runs: {pred['earned_runs']}")
-        print(f"  Confidence: {pred['confidence']}%")
-        print()
+        #print(f"{pitcher['player_name']} ({pitcher['position']}) - {pitcher['team']}")
+        #print(f"  Predicted Innings Pitched: {pred['innings_pitched']}")
+        #print(f"  Predicted Strikeouts: {pred['strikeouts']}")
+        #print(f"  Predicted Earned Runs: {pred['earned_runs']}")
+        #print(f"  Confidence: {pred['confidence']}%")
+        #print()
 
 
         

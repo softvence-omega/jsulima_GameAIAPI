@@ -13,7 +13,7 @@ load_dotenv()
 
 def train_and_evaluate_model(df: pd.DataFrame):
     if df.empty:
-        print("❌ Empty dataset. Training aborted.")
+        #print"❌ Empty dataset. Training aborted.")
         return
 
     # Targets
@@ -35,7 +35,7 @@ def train_and_evaluate_model(df: pd.DataFrame):
 
     # Save feature columns
     joblib.dump(feature_cols, os.path.join(model_dir, 'model_features.pkl'))
-    print(f"✅ Saved feature columns to: {os.path.join(model_dir, 'model_features.pkl')}")
+    #printf"✅ Saved feature columns to: {os.path.join(model_dir, 'model_features.pkl')}")
 
     # Prepare X & y
     X = df[feature_cols]
@@ -63,16 +63,16 @@ def train_and_evaluate_model(df: pd.DataFrame):
     mse_home = mean_squared_error(y_home_test, reg_home.predict(X_test))
     mse_away = mean_squared_error(y_away_test, reg_away.predict(X_test))
 
-    print(f"[🏈 home_win] Accuracy: {acc:.4f}")
-    print(f"[🏠 home_score] MSE: {mse_home:.2f}")
-    print(f"[🚗 away_score] MSE: {mse_away:.2f}")
+    #printf"[🏈 home_win] Accuracy: {acc:.4f}")
+    #printf"[🏠 home_score] MSE: {mse_home:.2f}")
+    #printf"[🚗 away_score] MSE: {mse_away:.2f}")
 
     # ✅ Save models
     joblib.dump(clf, os.path.join(model_dir, 'model_home_win.pkl'))
     joblib.dump(reg_home, os.path.join(model_dir, 'model_home_score.pkl'))
     joblib.dump(reg_away, os.path.join(model_dir, 'model_away_score.pkl'))
     
-    print(f"✅ Models saved to: {model_dir}")
+    #printf"✅ Models saved to: {model_dir}")
 
     return clf, reg_home, reg_away
 
@@ -80,8 +80,9 @@ def train_and_evaluate_model(df: pd.DataFrame):
 if __name__ == "__main__":
     csv_path = os.path.join(config.NFL_DIR, "historical_data_2010-2025.csv")
     if not os.path.exists(csv_path):
-        print(f"❌ File not found: {csv_path}")
-        print("Please make sure the file 'head-to-head.csv' exists in the directory:", config.NFL_DIR)
+        #printf"❌ File not found: {csv_path}")
+        #print"Please make sure the file 'head-to-head.csv' exists in the directory:", config.NFL_DIR)
+        pass 
     else:
         df = pd.read_csv(csv_path)
         train_and_evaluate_model(df)

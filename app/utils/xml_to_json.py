@@ -6,7 +6,7 @@ from app.config import GOALSERVE_API_KEY, GOALSERVE_BASE_URL
 
 
 def xml_to_json(URL: str):
-    print('URL-------------------------->',URL)
+    #print('URL-------------------------->',URL)
     try:
         response = requests.get(URL)
         if response.status_code == 200:
@@ -14,11 +14,11 @@ def xml_to_json(URL: str):
             json_data = json.loads(json.dumps(data_dict))
             return json_data
         else:
-            print("Failed to fetch XML data:", response.status_code)
+            #print("Failed to fetch XML data:", response.status_code)
             return None
     except Exception as e:
-        print("An error occurred:", str(e))
-        return None
+        #print("An error occurred:", str(e))
+        raise Exception(f"Error fetching or parsing XML data: {str(e)}")
         
 
 #example usage

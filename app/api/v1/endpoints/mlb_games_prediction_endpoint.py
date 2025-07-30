@@ -53,8 +53,12 @@ def get_future_matches():
 
 from datetime import datetime
 
-def get_win_pred():
+def get_win_pred(n : int ):
     matches = get_future_matches()
+    if n > 0:
+        n = min(n, len(matches))
+        matches = matches[:n]
+    
     ret = []
     for match in matches:
         pred = win_prediction(match['hometeam'], match['awayteam'], datetime.now().year)
@@ -66,10 +70,10 @@ def get_win_pred():
 
 
 
-@router.get("/head-to-head-win-prediction")
-async def games_prediction_endpoint():
+@router.post("/head-to-head-win-prediction")
+async def games_prediction_endpoint(n: int = 0):
     
-    res = get_win_pred()
+    res = get_win_pred(n)
     
     return res
 
