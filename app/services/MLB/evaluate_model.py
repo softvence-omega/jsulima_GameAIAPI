@@ -25,7 +25,7 @@ class LiveGamePredictor:
             total = 0
             correct = 0
             for i, game in enumerate(matches, 1):
-                print(f"match----------{i}")
+                # print(f"match----------{i}")
                 try:
                     standings = self.data_processor.fetch_data("baseball/mlb_standings")
                     features = self.data_processor.extract_predictive_features(game, standings_data=standings)
@@ -39,7 +39,7 @@ class LiveGamePredictor:
                         features['home_win'] = 1 if home_score > away_score else 0
                         features_df = pd.DataFrame([features])
 
-                        print("features----------", features)
+                        # print("features----------", features)
                         X = features_df.drop(['home_score', 'away_score', 'home_win'], axis=1)
                         y_true = int(features_df['home_win'].iloc[0])
 
@@ -50,9 +50,9 @@ class LiveGamePredictor:
                         total += 1
 
                 except Exception as e:
-                    print(f"Skipping game for {str(e)}")
+                    # print(f"Skipping game for {str(e)}")
                     continue
-            print(f"Overall accuracy: {correct}/{total} = {correct / total:.4f}")
+            # print(f"Overall accuracy: {correct}/{total} = {correct / total:.4f}")
 
 if __name__ == "__main__":
     predictor = LiveGamePredictor()

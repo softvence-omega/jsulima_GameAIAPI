@@ -14,7 +14,7 @@ def append_yesterday_game_if_season_active():
 
     # ✅ Offseason (March–June) → do nothing
     if 3 <= month <= 6:
-        print("ℹ️ Offseason (March–June), skipping update!")
+        #print"ℹ️ Offseason (March–June), skipping update!")
         return
     start_year = year
     end_year = year-1
@@ -37,10 +37,10 @@ def append_yesterday_game_if_season_active():
                     games = [games]
 
                 for i, game in enumerate(games):
-                    print(f"Fetching match {i} on {date_str}")
-                    print(f"Game type: {type(game)}, Game content: {game}")
+                    #printf"Fetching match {i} on {date_str}")
+                    #printf"Game type: {type(game)}, Game content: {game}")
                     if not isinstance(game, dict):
-                        print(f"⚠️ Skipping non-dict game object at index {i}: {game}")
+                        #printf"⚠️ Skipping non-dict game object at index {i}: {game}")
                         continue
                     features = processor.extract_predictive_features(game)
                 
@@ -52,13 +52,13 @@ def append_yesterday_game_if_season_active():
                         features['home_win'] = 1 if home_score > away_score else 0
                         historical_features.append(features)
         except Exception as e:
-            print(f"Error on {date_str}: {e}")
+            #printf"Error on {date_str}: {e}")
             continue
 
     df_new = pd.DataFrame(historical_features)
 
     if df_new.empty:
-        print("ℹ️ No new games for yesterday — skipping CSV update")
+        #print"ℹ️ No new games for yesterday — skipping CSV update")
         return
 
     # ✅ Merge with existing CSV (fixed file name)
@@ -69,7 +69,7 @@ def append_yesterday_game_if_season_active():
         df_existing = pd.read_csv(csv_path)
         df_new = df_new[~df_new['game_id'].isin(df_existing['game_id'])]
         if df_new.empty:
-            print("ℹ️ CSV already up to date — no new games to add!")
+            #print"ℹ️ CSV already up to date — no new games to add!")
             return
         df_final = pd.concat([df_existing, df_new], ignore_index=True)
     else:
@@ -77,7 +77,7 @@ def append_yesterday_game_if_season_active():
 
     # ✅ Save CSV
     df_final.to_csv(csv_path, index=False)
-    print(f"✅ CSV updated successfully — total games: {len(df_final)}")
+    #printf"✅ CSV updated successfully — total games: {len(df_final)}")
 
 # Run this daily
 append_yesterday_game_if_season_active()

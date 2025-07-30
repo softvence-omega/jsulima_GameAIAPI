@@ -19,7 +19,7 @@ class HeadToHeadRecord:
         
         file_path = data_file if data_file else os.path.join(NFL_DIR, "Game_data(historical).csv")
 
-        print(f"📂 Looking for file at: {file_path}")
+        #print(f"📂 Looking for file at: {file_path}")
 
         # Load the data
         df = pd.read_csv(file_path)
@@ -64,9 +64,10 @@ if __name__ == "__main__":
     last_5_match_list = head_to_head.fetch_head_to_head_teams(team1, team2)
 
     if last_5_match_list is not None and len(last_5_match_list) > 0:
-        print("\n🏈 Last 5 H2H matches between {} and {}:\n".format(team1, team2))
-        # Convert list of dicts to DataFrame for pretty printing
+        #print("\n🏈 Last 5 H2H matches between {} and {}:\n".format(team1, team2))
+        # Convert list of dicts to DataFrame for pretty #printing
         df = pd.DataFrame(last_5_match_list)
-        print(df[['date', 'home_team', 'away_team', 'home_score', 'away_score']])
+        #print(df[['date', 'home_team', 'away_team', 'home_score', 'away_score']])
     else:
-        print("❌ No match data to display!")
+        #print("❌ No match data to display!")
+        pass 

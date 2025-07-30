@@ -16,7 +16,7 @@ df3= pd.read_csv(path3)
 
 path4 = os.path.join(csv_dir, 'mlb_historical_data(2010-2013).csv')
 df4= pd.read_csv(path4)
-print("DataFrame shapes:", df1.shape, df2.shape, df3.shape, df4.shape)
+# print("DataFrame shapes:", df1.shape, df2.shape, df3.shape, df4.shape)
 
 # df = pd.concat([df1, df2, df3, df4], ignore_index=True)
 # print("Combined DataFrame shape:", df.shape)

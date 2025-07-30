@@ -31,7 +31,7 @@ class LiveGamePredictor:
         self.home_score_model = joblib.load(os.path.join(self.model_path, 'mlb_home_score_regressor.pkl'))
         self.away_score_model = joblib.load(os.path.join(self.model_path, 'mlb_away_score_regressor.pkl'))  
         
-        print("All models loaded successfully")
+        #print("All models loaded successfully")
 
 
     def get_team_roster(self, team_id):
@@ -40,7 +40,7 @@ class LiveGamePredictor:
             roster_data = self.data_processor.fetch_data(f"baseball/{team_id}_rosters")
             return roster_data
         except Exception as e:
-            print(f"Error fetching roster for team {team_id}: {e}")
+            #print(f"Error fetching roster for team {team_id}: {e}")
             return None
 
     def predict_todays_games(self):
@@ -74,7 +74,7 @@ class LiveGamePredictor:
             i = 0
             for game in matches:
                 i += 1
-                print(f"Processing game {i}/{len(matches)}: {game.get('@id', 'Unknown ID')}")
+                #print(f"Processing game {i}/{len(matches)}: {game.get('@id', 'Unknown ID')}")
                 try:
                     features = self.data_processor.extract_predictive_features(
                         game_data=game,
@@ -125,14 +125,14 @@ class LiveGamePredictor:
                     })
 
                 except Exception as e:
-                    print(f"Error predicting game: {str(e)}")
+                    #print(f"Error predicting game: {str(e)}")
                     continue
 
             # return sorted(predictions, key=lambda x: x['confidence'], reverse=True)
             return predictions
             
         except Exception as e:
-            print(f"Error in predict_todays_games: {str(e)}")
+            #print(f"Error in predict_todays_games: {str(e)}")
             return []
 
     def _generate_key_insights(self, game_data, features, top_performers):

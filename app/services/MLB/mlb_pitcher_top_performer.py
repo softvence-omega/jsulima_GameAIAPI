@@ -119,7 +119,7 @@ class PitcherPredictor:
 
 if __name__ == "__main__":
     predictor = PitcherPredictor()
-    print(predictor.final_output.head())
+    #print(predictor.final_output.head())
     # Example usage
     top_pitchers = predictor.get_top_pitcher("Chicago Cubs", "Baltimore Orioles")
-    print(top_pitchers)
+    #print(top_pitchers)

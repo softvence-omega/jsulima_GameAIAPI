@@ -17,9 +17,8 @@ router = APIRouter()
 # Constants
 STARTING_LINEUP_SIZE = 11
 NFL_LINEUP_MODEL_PATH = "models/nfl_lineup_model.pkl"
-GOALSERVE_API_BASE_URL = "http://www.goalserve.com/getfeed"
-GOALSERVE_API_KEY = os.getenv('GOALSERVE_API_KEY')
 INJURIES_ENDPOINT_TEMPLATE = "football/{team_id}_injuries"
+from app.config import GOALSERVE_BASE_URL, GOALSERVE_API_KEY
 
 
 TEAM_NAME_TO_ID = {
@@ -73,7 +72,7 @@ def get_injured_players(team_id: int) -> list[int]:
     Fetches the list of injured players for a given team.
     """
     endpoint = INJURIES_ENDPOINT_TEMPLATE.format(team_id=team_id)
-    url = f"{GOALSERVE_API_BASE_URL}/{GOALSERVE_API_KEY}/{endpoint}?json=1"
+    url = f"{GOALSERVE_BASE_URL}{GOALSERVE_API_KEY}/{endpoint}?json=1"
     response = requests.get(url)
     response.raise_for_status()
     data = response.json()
@@ -91,6 +90,7 @@ def prepare_team_probabilities(team_id: int) -> pd.DataFrame:
     probs = predictor.predict_lineup(team_id)
     probs = probs.fillna(0)
     probs['player_id'] = probs['player_id'].astype('int64').astype('str')
+    probs['player_photo'] = probs['player_id'].apply(lambda pid: f"{GOALSERVE_BASE_URL}{GOALSERVE_API_KEY}/football/usa?playerimage={pid}&json=1")
 
     injured_players = get_injured_players(team_id)
     probs = probs[~probs["player_id"].isin(injured_players)]
@@ -139,6 +139,7 @@ def nfl_lineup(request: NFLTeams) -> JSONResponse:
 
         home_top_11 = get_top_starters(home_probs)
         away_top_11 = get_top_starters(away_probs)
+
 
         payload = create_lineup_response(home_top_11, away_top_11)
 

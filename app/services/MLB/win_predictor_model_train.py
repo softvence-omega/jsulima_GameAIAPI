@@ -26,12 +26,12 @@ WINNER_SCALER_PATH = 'models/mlb_winner_scaler.joblib'
 def load_yearly_data(years, file_pattern, data_path):
     """Loads and concatenates data files for a specific pattern over a range of years."""
     all_files = []
-    print(f"Searching for files with pattern: {file_pattern.format(year='YYYY')}")
+    #printf"Searching for files with pattern: {file_pattern.format(year='YYYY')}")
     for year in years:
         file_path = os.path.join(data_path, file_pattern.format(year=year))
         found_files = glob.glob(file_path)
         if not found_files:
-            print(f"Warning: Could not find data for {file_pattern.format(year=year)}")
+            #printf"Warning: Could not find data for {file_pattern.format(year=year)}")
             continue
         df = pd.read_csv(found_files[0])
         df['year'] = year
@@ -41,7 +41,7 @@ def load_yearly_data(years, file_pattern, data_path):
 
 def engineer_features(games_df, batting_df, pitching_df):
     """Takes raw dataframes and engineers features for all models."""
-    print("\n--- Step 2: Engineering features for all models ---")
+    #print"\n--- Step 2: Engineering features for all models ---")
     games_df['home_win'] = (games_df['home_score'] > games_df['away_score']).astype(int)
     games_df = games_df[['year', 'home_team', 'away_team', 'home_score', 'away_score', 'home_win']].dropna()
 
@@ -85,12 +85,12 @@ def engineer_features(games_df, batting_df, pitching_df):
 
 def train_models(df, score_features, winner_features, test_year):
     """Trains, evaluates, and returns all models and scalers."""
-    print("\n--- Step 3: Training and Evaluating All Models ---")
+    #print"\n--- Step 3: Training and Evaluating All Models ---")
     train_df = df[df['year'] < test_year]
     test_df = df[df['year'] == test_year]
 
     if test_df.empty:
-        print(f"Warning: No data for test year {test_year}. Evaluation skipped.")
+        #printf"Warning: No data for test year {test_year}. Evaluation skipped.")
         return {}, {}
 
     # --- Train Score Prediction Models (Regression) ---
@@ -103,8 +103,8 @@ def train_models(df, score_features, winner_features, test_year):
     
     home_mae = mean_absolute_error(test_df['home_score'], home_model.predict(X_test_score_s))
     away_mae = mean_absolute_error(test_df['away_score'], away_model.predict(X_test_score_s))
-    print(f"Home Score Model MAE: {home_mae:.2f} runs")
-    print(f"Away Score Model MAE: {away_mae:.2f} runs")
+    #printf"Home Score Model MAE: {home_mae:.2f} runs")
+    #printf"Away Score Model MAE: {away_mae:.2f} runs")
 
     # --- Train Winner Prediction Model (Classification) ---
     X_train_winner, X_test_winner = train_df[winner_features], test_df[winner_features]
@@ -113,7 +113,7 @@ def train_models(df, score_features, winner_features, test_year):
 
     winner_model = LogisticRegression(random_state=42).fit(X_train_winner_s, train_df['home_win'])
     accuracy = accuracy_score(test_df['home_win'], winner_model.predict(X_test_winner_s))
-    print(f"Winner Model Accuracy: {accuracy:.2%}")
+    #printf"Winner Model Accuracy: {accuracy:.2%}")
 
     models = {'home_score': home_model, 'away_score': away_model, 'winner': winner_model}
     scalers = {'score': score_scaler, 'winner': winner_scaler}
@@ -123,18 +123,18 @@ def train_models(df, score_features, winner_features, test_year):
 
 def save_all_models(models, scalers):
     """Saves all models and scalers to disk."""
-    print("\n--- Step 4: Saving all models and scalers ---")
+    #print"\n--- Step 4: Saving all models and scalers ---")
     joblib.dump(models['home_score'], HOME_SCORE_MODEL_PATH)
     joblib.dump(models['away_score'], AWAY_SCORE_MODEL_PATH)
     joblib.dump(models['winner'], WINNER_MODEL_PATH)
     joblib.dump(scalers['score'], SCORE_SCALER_PATH)
     joblib.dump(scalers['winner'], WINNER_SCALER_PATH)
-    print("All models and scalers saved.")
+    #print"All models and scalers saved.")
 
 
 def load_and_predict_outcome(home_team, away_team, year, team_stats_df, score_features, winner_features):
     """Loads all models to predict the score and win confidence of a game."""
-    print("\n--- Step 5: Loading models for a complete prediction ---")
+    #print"\n--- Step 5: Loading models for a complete prediction ---")
     try:
         # Load all necessary files
         home_score_model = joblib.load(HOME_SCORE_MODEL_PATH)
@@ -142,7 +142,7 @@ def load_and_predict_outcome(home_team, away_team, year, team_stats_df, score_fe
         winner_model = joblib.load(WINNER_MODEL_PATH)
         score_scaler = joblib.load(SCORE_SCALER_PATH)
         winner_scaler = joblib.load(WINNER_SCALER_PATH)
-        print("All models and scalers loaded successfully.")
+        #print"All models and scalers loaded successfully.")
 
         # Get team stats
         home_stats = team_stats_df[(team_stats_df['team'] == home_team) & (team_stats_df['year'] == year)].iloc[0]
@@ -201,13 +201,13 @@ def load_and_predict_outcome(home_team, away_team, year, team_stats_df, score_fe
 
 def main():
     """Main function to run the full MLB prediction pipeline."""
-    print("--- Step 1: Loading all data files ---")
+    #print"--- Step 1: Loading all data files ---")
     games_df = load_yearly_data(YEARS, 'games_data_final_{year}.csv', os.path.join(DATA_PATH, 'game_data/'))
     batting_df = load_yearly_data(YEARS, 'batting_{year}.csv', os.path.join(DATA_PATH, 'batting/'))
     pitching_df = load_yearly_data(YEARS, 'pitching_{year}.csv', os.path.join(DATA_PATH, 'pitching/'))
 
     if any(df.empty for df in [games_df, batting_df, pitching_df]):
-        print("\nExecution stopped: Could not find or load the required multi-year data files.")
+        #print"\nExecution stopped: Could not find or load the required multi-year data files.")
         return
 
     final_df, team_stats_yearly = engineer_features(games_df, batting_df, pitching_df)
@@ -225,7 +225,7 @@ def main():
     if models and scalers:
         save_all_models(models, scalers)
         prediction = load_and_predict_outcome('Baltimore Orioles', 'Chicago White Sox', TEST_YEAR, team_stats_yearly, score_features, winner_features)
-        print(f"\n--- Prediction Example ---\nPrediction for NYA vs. BOS based on {TEST_YEAR} stats: {prediction}")
+        #printf"\n--- Prediction Example ---\nPrediction for NYA vs. BOS based on {TEST_YEAR} stats: {prediction}")
 
 
 

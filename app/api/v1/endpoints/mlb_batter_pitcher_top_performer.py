@@ -19,13 +19,13 @@ file_path = 'app/data/MLB/batting/batting_data_combined.csv'
 model_path = get_model_path()
 
 if os.path.exists(model_path):
-    print(f"Loading model from {model_path}")
+    #print(f"Loading model from {model_path}")
     model = joblib.load(model_path)
     # Still need to load data for label encoder and prediction
     df, le, X_train, X_test, y_train, y_test = load_and_prepare_data(file_path)
     mse, r2, confidence_interval = predict_and_evaluate(model, X_test, y_test)
 else:
-    print(f"Training model and saving to {model_path}")
+    #print(f"Training model and saving to {model_path}")
     df, le, X_train, X_test, y_train, y_test = load_and_prepare_data(file_path)
     model = train_model(X_train, y_train)
     mse, r2, confidence_interval = predict_and_evaluate(model, X_test, y_test)

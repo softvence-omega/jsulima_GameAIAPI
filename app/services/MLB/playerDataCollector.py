@@ -16,22 +16,22 @@ data_processor = BaseballDataProcessor(API_KEY)
 PlayerDataProcessor = PlayerDataProcessor()
 
 def extract_data(game):
-    print("call extract_data---------------")
+    #print"call extract_data---------------")
     game_data = PlayerDataProcessor.extract_game_info(game)
     if not game_data['venue_id']:
         raise ValueError("Venue ID is missing in game data. Cannot extract stats without venue information.")
     
-    # print('game_data----------------',game_data)
+    # #print'game_data----------------',game_data)
     pitcher_stats = PlayerDataProcessor.extract_pitcher_stats(game, game_data)
-    # print('pitcher_stats----------------',pitcher_stats)
+    # #print'pitcher_stats----------------',pitcher_stats)
     batter_stats = PlayerDataProcessor.extract_batter_stats(game, game_data)
-    # print('batter_stats----------------',batter_stats)
+    # #print'batter_stats----------------',batter_stats)
     return game_data, pitcher_stats, batter_stats
 
 
 def fetch_season_data(year):
     """Fetch complete season data for model training"""
-    print(f"Fetching historical data for {year} season...")
+    #printf"Fetching historical data for {year} season...")
     
     # MLB season typically runs April-October
     start_date = f"{year}-03-01"
@@ -43,7 +43,7 @@ def fetch_season_data(year):
     date_range = pd.date_range(start=start_date, end=end_date)
 
     for date in date_range:
-        print("date---------", date)
+        #print"date---------", date)
         date_str = date.strftime("%d.%m.%Y")
         try:
             response = data_processor.fetch_data("baseball/usa", {"date": date_str})
@@ -55,7 +55,7 @@ def fetch_season_data(year):
                 i=0
                 for game in matches:
                     i+=1
-                    print(f"match----------{i}")
+                    #printf"match----------{i}")
                     try:
                         game_data, pitcher_stats, batter_stats = extract_data(game)
                         all_games.append(game_data)
@@ -63,11 +63,11 @@ def fetch_season_data(year):
                         all_batter_stats.extend(batter_stats)
                         
                     except Exception as e:
-                        print(f"Skipping game on {date_str}: {str(e)}")
+                        #printf"Skipping game on {date_str}: {str(e)}")
                         continue
                         
         except Exception as e:
-            print(f"Error fetching data for {date_str}: {str(e)}")
+            #printf"Error fetching data for {date_str}: {str(e)}")
             continue
     
     # Convert to DataFrames
@@ -110,7 +110,7 @@ def PlayerDataCollector(years):
     pitcher_df = pd.concat(pitcher_stats_data, ignore_index=True)
     batter_df = pd.concat(batter_stats_data, ignore_index=True)
 
-    print(f"Final training dataset shape of pitcher: {pitcher_df.shape}")
+    #printf"Final training dataset shape of pitcher: {pitcher_df.shape}")
     
     #print("dataframe-----", df)
     dir = os.path.join(DATA_DIR, "MLB")
@@ -120,7 +120,7 @@ def PlayerDataCollector(years):
     pitcher_df.to_csv(os.path.join(dir, 'pitcher_stats_data(2010-2024).csv'), index=False)
     batter_df.to_csv(os.path.join(dir, 'batter_stats_data(2010-2024).csv'), index=False)
 
-    print(f"Historical data saved!")
+    # print(f"Historical data saved!")
 
 if __name__ == "__main__":
     # Example usage

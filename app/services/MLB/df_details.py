@@ -6,9 +6,9 @@ csv_dir = os.path.join(DATA_DIR, "MLB")
 os.makedirs(csv_dir, exist_ok=True)
 csv_file_path = os.path.join(csv_dir, 'mlb_player_stats.csv')
 df= pd.read_csv(csv_file_path)
-print(df[df['team']=='Colorado Rockies'])
+# print(df[df['team']=='Colorado Rockies'])
 # print("df------\n", df.columns)
-print("df------\n", df['team'].value_counts().index)
+# print("df------\n", df['team'].value_counts().index)
 ########### Features ######################
 # ['game_id', 'game_date', 'venue_name', 'player_id', 'player_name',
 #        'home_away', 'team', 'team_id', 'opponent_team', 'opponent_team_id',

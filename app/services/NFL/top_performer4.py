@@ -7,6 +7,7 @@ from sklearn.preprocessing import StandardScaler
 import warnings
 from typing import Dict, List, Tuple, Any
 import joblib
+from app.config import GOALSERVE_BASE_URL, GOALSERVE_API_KEY 
 
 # Suppress warnings for cleaner output
 warnings.filterwarnings('ignore', category=pd.errors.SettingWithCopyWarning)
@@ -178,6 +179,9 @@ class NFLPerformanceAnalyzer:
                 (merged_data['player_position'].isin(self.positions)) & 
                 (merged_data['team_name'] == away_team)
             ].copy()
+
+            #print("Home Team Data:--------------------------------------------------------")
+            #print(away_data.columns)
             
             # Remove duplicates
             home_data = home_data.drop_duplicates(subset=["player_name", "player_position"])
@@ -186,13 +190,14 @@ class NFLPerformanceAnalyzer:
             return home_data, away_data
             
         except Exception as e:
-            print(f"Error loading data: {e}")
+            #print(f"Error loading data: {e}")
             return pd.DataFrame(), pd.DataFrame()
     
     def create_placeholder_player(self, team_name: str, position: str) -> Dict:
         """Create placeholder for missing position"""
         return {
             'team_name': team_name,
+            'player_id': None,
             'player_name': f"No player in {position} position",
             'player_status': 'Not Active',
             'player_position': position,
@@ -293,7 +298,7 @@ class NFLPerformanceAnalyzer:
             return top_player, confidence
             
         except Exception as e:
-            print(f"ML prediction error for position: {e}")
+            #print(f"ML prediction error for position: {e}")
             # Fallback to highest scoring player
             idx = position_data['performance_score'].idxmax()
             top_player = position_data.loc[idx].copy()
@@ -327,6 +332,7 @@ class NFLPerformanceAnalyzer:
             # Build result dictionary
             result = {
                 'team_name': team_name,
+                "player_photo": f"{GOALSERVE_BASE_URL}{GOALSERVE_API_KEY}/football/usa?playerimage={int(top_player.get('player_id', '0'))}&json=1",
                 'player_name': top_player.get('player_name', 'Unknown'),
                 'player_status': top_player.get('player_status', 'roster'),
                 'player_position': position,
@@ -361,7 +367,7 @@ def get_top_performers(home_team_name: str, away_team_name: str) -> Dict[str, An
     home_data, away_data = analyzer.load_and_prepare_data(home_team_name, away_team_name)
     
     if home_data.empty and away_data.empty:
-        print("No data found for the specified teams")
+        #print("No data found for the specified teams")
         return {
             "top_performers": {
                 "hometeam": {
@@ -414,26 +420,29 @@ if __name__ == "__main__":
     try:
         results = get_top_performers("Atlanta Falcons", "Arizona Cardinals")
         
-        print("Top Performers:")
-        print("-" * 80)
+        #print("Top Performers:")
+        #print("-" * 80)
         
-        # Print home team
+        # #print home team
         home_team = results["top_performers"]["hometeam"]
-        print("Home Team_name:",home_team['team_name'])
+        #print("Home Team_name:",home_team['team_name'])
         for performer in home_team["players"]:
-            print(f"  Player: {performer['player_name']} ({performer['player_position']})")
-            print(f"  Performance Score: {performer['performance_score']:.1f}")
-            print(f"  Confidence: {performer['confidence_score']:.2f}")
-            print("-" * 40)
+            #print(f"  Player: {performer['player_name']} ({performer['player_position']})")
+            #print(f"  Performance Score: {performer['performance_score']:.1f}")
+            #print(f"  Confidence: {performer['confidence_score']:.2f}")
+            # print("-" * 40)
+            pass
         
         # Print away team
         away_team = results["top_performers"]["awayteam"]
-        print("Away Team:", away_team['team_name'])
+        # print("Away Team:", away_team['team_name'])
         for performer in away_team["players"]:
-            print(f"  Player: {performer['player_name']} ({performer['player_position']})")
-            print(f"  Performance Score: {performer['performance_score']:.1f}")
-            print(f"  Confidence: {performer['confidence_score']:.2f}")
-            print("-" * 40)
+            #print(f"  Player: {performer['player_name']} ({performer['player_position']})")
+            #print(f"  Performance Score: {performer['performance_score']:.1f}")
+            #print(f"  Confidence: {performer['confidence_score']:.2f}")
+            #print("-" * 40)
+            pass 
             
     except Exception as e:
-        print(f"Error running example: {e}")
+        #print(f"Error running example: {e}")
+        raise Exception(f"Error running example: {e}")

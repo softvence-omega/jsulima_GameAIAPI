@@ -13,7 +13,7 @@ data_processor = BaseballDataProcessor(API_KEY)
 
 def fetch_historical_season_data(year):
     """Fetch complete season data for model training"""
-    print(f"Fetching historical data for {year} season...")
+    # print(f"Fetching historical data for {year} season...")
     
     # MLB season typically runs April-October
     start_date = f"{year}-01-01"
@@ -37,10 +37,10 @@ def fetch_historical_season_data(year):
                 i=0
                 for game in matches:
                     i+=1
-                    print(f"match----------{i}")
+                    # print(f"match----------{i}")
                     try:
                         features = data_processor.extract_predictive_features(game)
-                        print("features----------", features)
+                        # print("features----------", features)
                         if features:
                             home_score = int(game.get('hometeam', {}).get('@totalscore', 0))
                             away_score = int(game.get('awayteam', {}).get('@totalscore', 0))
@@ -50,11 +50,11 @@ def fetch_historical_season_data(year):
                             features['home_win'] = 1 if home_score > away_score else 0
                             historical_data.append(features)
                     except Exception as e:
-                        print(f"Skipping game on {date_str}: {str(e)}")
+                        # print(f"Skipping game on {date_str}: {str(e)}")
                         continue
                         
         except Exception as e:
-            print(f"Error fetching data for {date_str}: {str(e)}")
+            # print(f"Error fetching data for {date_str}: {str(e)}")
             continue
     
     return pd.DataFrame(historical_data) if historical_data else pd.DataFrame()
@@ -72,14 +72,14 @@ def HistoricalDataCollector(years=[2019, 2021]):
         raise ValueError("No historical data found for training")
     
     df = pd.concat(all_seasons_data, ignore_index=True)
-    print(f"Final training dataset shape: {df.shape}")
-    print("datatypes-----------", df.dtypes)
+    # print(f"Final training dataset shape: {df.shape}")
+    # print("datatypes-----------", df.dtypes)
     #print("dataframe-----", df)
     csv_dir = os.path.join(DATA_DIR, "MLB")
     os.makedirs(csv_dir, exist_ok=True)
     csv_path = os.path.join(csv_dir, 'mlb_historical_data(2010-2013).csv')
     df.to_csv(csv_path, index=False)
-    print(f"Historical data saved to {csv_path}")
+    # print(f"Historical data saved to {csv_path}")
 
 if __name__ == "__main__":
     # Example usage

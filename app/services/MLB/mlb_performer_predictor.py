@@ -80,7 +80,7 @@ class PerformerPredictor:
             return prediction
         
         except Exception as e:
-            print(f"Error predicting pitcher performance: {e}")
+            # print(f"Error predicting pitcher performance: {e}")
             return {
                 'predicted_stats': {},
                 'confidence': 0.0,
@@ -115,7 +115,7 @@ class PerformerPredictor:
         # Starters get a small bonus since they face lineup multiple times
         if is_starter:
             performance_score *= 1.2
-        print("performance_score------------------", performance_score)   
+        # print("performance_score------------------", performance_score)   
         return {
             **prediction,
             'performance_score': safe_float(performance_score),
@@ -170,7 +170,7 @@ class PerformerPredictor:
             }
             
         except Exception as e:
-            print(f"Error predicting top pitcher for {team_type}: {e}")
+            #print(f"Error predicting top pitcher for {team_type}: {e}")
             return None
 
     def predict_top_performers(self, game_data):
@@ -189,7 +189,7 @@ class PerformerPredictor:
                 }
             }
         except Exception as e:
-            print(f"Error predicting top performers: {e}")
+            #print(f"Error predicting top performers: {e}")
             return {
                 'home_team': {'top_pitcher': None},
                 'away_team': {'top_pitcher': None}
@@ -248,14 +248,14 @@ class PerformerPredictor:
                     })
 
                 except Exception as e:
-                    print(f"Error predicting game: {str(e)}")
+                    #print(f"Error predicting game: {str(e)}")
                     continue
 
             # return sorted(predictions, key=lambda x: x['confidence'], reverse=True)
             return predictions
             
         except Exception as e:
-            print(f"Error in predict_todays_games: {str(e)}")
+            #print(f"Error in predict_todays_games: {str(e)}")
             return []
 
     def _generate_key_insights(self, game_data, features, top_performers):
@@ -303,4 +303,5 @@ if __name__ == "__main__":
     today_predictions = predictor.predict_todays_games()
 
     for prediction in today_predictions:
-        print(prediction)
+        #print(prediction)
+        pass 

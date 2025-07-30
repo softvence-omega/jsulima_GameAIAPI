@@ -63,7 +63,7 @@ class MLBLineupPredictionService:
         self.df_stats = df_stats
 
     def _train_batting_model(self):
-        print("Training batting order model...")
+        #print("Training batting order model...")
         bat_feat_cols = [
             "on_base_percentage", "slugging_percentage", "batting_avg",
             "home_runs", "doubles", "triples", "stolen_bases", "strikeouts"
@@ -81,11 +81,11 @@ class MLBLineupPredictionService:
         rf_bat.fit(X_bat, y_bat)
 
         joblib.dump(rf_bat, self.bat_model_path)
-        print(f"Batting model saved to {self.bat_model_path}")
+        #print(f"Batting model saved to {self.bat_model_path}")
         return rf_bat
 
     def _train_fielding_model(self):
-        print("Training fielding position model...")
+        #print("Training fielding position model...")
         df_rosters = self.df_rosters.copy()  # Use preprocessed data
 
         field_feat_cols = ["bats", "throws", "age", "height_in", "weight_int"]
@@ -119,7 +119,7 @@ class MLBLineupPredictionService:
         rf_pos.fit(X_pos, y_pos)
 
         joblib.dump(rf_pos, self.pos_model_path)
-        print(f"Fielding model saved to {self.pos_model_path}")
+        #print(f"Fielding model saved to {self.pos_model_path}")
         return rf_pos
 
     def _load_or_train_models(self):

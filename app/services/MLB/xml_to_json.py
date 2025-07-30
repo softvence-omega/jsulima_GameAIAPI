@@ -4,7 +4,7 @@ import json
 
 
 def xml_url_to_json(url: str) -> dict:
-    print(f"Fetching XML data from----------: {url}")
+    #printf"Fetching XML data from----------: {url}")
     try:
         # Fetch XML from the URL
         response = requests.get(url)
@@ -19,5 +19,5 @@ def xml_url_to_json(url: str) -> dict:
         return json_data
     
     except Exception as e:
-        print(f"Error: {e}")
+        #printf"Error: {e}")
         return {}
