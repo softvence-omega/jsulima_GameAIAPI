@@ -60,7 +60,7 @@ TEAM_NAME_TO_ID = {
 def initialize_predictor() -> NFLLineupPredictor:
     """Initialize and train the NFL lineup predictor."""
     predictor = NFLLineupPredictor()
-    predictor.train("app/data/NFL/player_info.csv", "app/data/NFL/all_player_stats.csv", NFL_LINEUP_MODEL_PATH)
+    predictor.train("app/data/NFL/player_info.csv", "app/data/NFL/nfl_player_stats_test_with_positions.csv", NFL_LINEUP_MODEL_PATH)
     return predictor
 
 

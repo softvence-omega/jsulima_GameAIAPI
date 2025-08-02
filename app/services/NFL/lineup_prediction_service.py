@@ -147,7 +147,7 @@ class NFLLineupPredictor:
 
     # ============================== API ============================== #
 
-    def train(self, info_csv: str, stats_csv: str, save_path: str | Path = "nfl_lineup_model.pkl"):
+    def train(self, info_csv: str, stats_csv: str, save_path: str | Path = "nfl_lineup_model_1.pkl"):
         """Train the model on two CSVs and save it to *save_path* (.pkl)."""
         data = self.load_and_preprocess_data(info_csv, stats_csv)
         feats = self.create_features(data)
@@ -241,3 +241,10 @@ class NFLLineupPredictor:
         sns.barplot(x=s.values, y=s.index, orient="h")
         plt.tight_layout()
         plt.show()
+
+
+if __name__ == "__main__":
+    predictor = NFLLineupPredictor()
+    predictor.train("app/data/NFL/player_info.csv", "app/data/NFL/nfl_player_stats_test_with_positions.csv", "models/nfl_lineup_model.pkl")
+    predictor.plot_feature_importance()
+    print("Model trained and saved successfully.")
