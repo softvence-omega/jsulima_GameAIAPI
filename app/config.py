@@ -25,3 +25,4 @@ URLS_NFL = [
      f"{GOALSERVE_BASE_URL}{GOALSERVE_API_KEY}/football/nfl-shedule?date1=01.01.2024&date2=02.01.2024&showodds=1"),
     ("Player images", f"{GOALSERVE_BASE_URL}{GOALSERVE_API_KEY}/football/usa?playerimage=15826")
 ]
+
