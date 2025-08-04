@@ -151,41 +151,46 @@ class NFLPerformanceAnalyzer:
         """Load and prepare player data for both teams"""
         
         try:
-            # Load datasets
-            player_stats = pd.read_csv('app/data/NFL/all_player_stats.csv')
-            player_info = pd.read_csv('app/data/NFL/player_info.csv')
+            # # Load datasets
+            # player_stats = pd.read_csv('app/data/NFL/all_player_stats.csv')
+            # player_info = pd.read_csv('app/data/NFL/player_info.csv')
             
-            # Merge datasets
-            merged_data = pd.merge(
-                player_stats, 
-                player_info, 
-                left_on='id', 
-                right_on='player_id', 
-                how='inner'
-            )
-            
+            # # Merge datasets
+            # merged_data = pd.merge(
+            #     player_stats, 
+            #     player_info, 
+            #     left_on='id', 
+            #     right_on='player_id', 
+            #     how='inner'
+            # )
+            merged_data = pd.read_csv('app/data/NFL/nfl_player_stats_test_with_positions.csv')
+
+            print("Merged Data Columns: ", merged_data.head(2))
             # Convert stat columns to numeric
             for col in self.stat_columns:
                 if col in merged_data.columns:
                     merged_data[col] = pd.to_numeric(merged_data[col], errors='coerce')
             
+            print("=" * 100)
             # Filter for target positions and teams
             home_data = merged_data[
                 (merged_data['player_position'].isin(self.positions)) & 
-                (merged_data['team_name'] == home_team)
+                (merged_data['home_team_name'] == home_team)
             ].copy()
-            
+            print("@" * 100)
+
             away_data = merged_data[
                 (merged_data['player_position'].isin(self.positions)) & 
-                (merged_data['team_name'] == away_team)
+                (merged_data['away_team_name'] == away_team)
             ].copy()
 
-            #print("Home Team Data:--------------------------------------------------------")
-            #print(away_data.columns)
-            
+            print("Home Team Data:--------------------------------------------------------")
+            print(away_data.columns)
+            print("home_tdata: ", home_data.head(2))
+
             # Remove duplicates
-            home_data = home_data.drop_duplicates(subset=["player_name", "player_position"])
-            away_data = away_data.drop_duplicates(subset=["player_name", "player_position"])
+            home_data = home_data.drop_duplicates(subset=["name", "player_position"])
+            away_data = away_data.drop_duplicates(subset=["name", "player_position"])
             
             return home_data, away_data
             
@@ -199,7 +204,7 @@ class NFLPerformanceAnalyzer:
             'team_name': team_name,
             'player_id': None,
             'player_name': f"No player in {position} position",
-            'player_status': 'Not Active',
+            #'player_status': 'Not Active',
             'player_position': position,
             'performance_score': 0.0,
             'confidence_score': 0.0,
@@ -207,20 +212,20 @@ class NFLPerformanceAnalyzer:
             'total_touchdowns_used': 0
         }
     
-    def handle_outliers_iqr(self, df: pd.DataFrame, columns: List[str]) -> pd.DataFrame:
-        """Handle outliers using the IQR method by capping them."""
-        df_copy = df.copy()
-        for col in columns:
-            if col in df_copy.columns and pd.api.types.is_numeric_dtype(df_copy[col]):
-                Q1 = df_copy[col].quantile(0.25)
-                Q3 = df_copy[col].quantile(0.75)
-                IQR = Q3 - Q1
-                lower_bound = Q1 - 1.5 * IQR
-                upper_bound = Q3 + 1.5 * IQR
+    # def handle_outliers_iqr(self, df: pd.DataFrame, columns: List[str]) -> pd.DataFrame:
+    #     """Handle outliers using the IQR method by capping them."""
+    #     df_copy = df.copy()
+    #     for col in columns:
+    #         if col in df_copy.columns and pd.api.types.is_numeric_dtype(df_copy[col]):
+    #             Q1 = df_copy[col].quantile(0.25)
+    #             Q3 = df_copy[col].quantile(0.75)
+    #             IQR = Q3 - Q1
+    #             lower_bound = Q1 - 1.5 * IQR
+    #             upper_bound = Q3 + 1.5 * IQR
                 
-                # Cap outliers using the clip method
-                df_copy[col] = df_copy[col].clip(lower=lower_bound, upper=upper_bound)
-        return df_copy
+    #             # Cap outliers using the clip method
+    #             df_copy[col] = df_copy[col].clip(lower=lower_bound, upper=upper_bound)
+    #     return df
     
     def predict_top_performer(self, position_data: pd.DataFrame) -> Tuple[pd.Series, float]:
         """Use ML to predict the top performer for a position"""
@@ -249,7 +254,7 @@ class NFLPerformanceAnalyzer:
         position_data['is_top_performer'] = (position_data['performance_score'] == max_score).astype(int)
 
         # Handle outliers before training the model
-        position_data = self.handle_outliers_iqr(position_data, self.stat_columns)
+       # position_data = self.handle_outliers_iqr(position_data, self.stat_columns)
         
         # Prepare features for ML
         feature_cols = [col for col in self.stat_columns if col in position_data.columns]
@@ -333,8 +338,8 @@ class NFLPerformanceAnalyzer:
             result = {
                 'team_name': team_name,
                 "player_photo": f"{GOALSERVE_BASE_URL}{GOALSERVE_API_KEY}/football/usa?playerimage={int(top_player.get('player_id', '0'))}&json=1",
-                'player_name': top_player.get('player_name', 'Unknown'),
-                'player_status': top_player.get('player_status', 'roster'),
+                'player_name': top_player.get('name', 'Unknown'),
+                # 'player_status': top_player.get('player_status', 'roster'),
                 'player_position': position,
                 'performance_score': float(top_player.get('performance_score', 0)),
                 'confidence_score': float(confidence)
@@ -360,11 +365,13 @@ def get_top_performers(home_team_name: str, away_team_name: str) -> Dict[str, An
     Returns:
         Dictionary with the specified output format
     """
-    
+    print("inside get_top_performers")
     analyzer = NFLPerformanceAnalyzer()
     
     # Load and prepare data
     home_data, away_data = analyzer.load_and_prepare_data(home_team_name, away_team_name)
+
+    print("home_data: ", home_data)
     
     if home_data.empty and away_data.empty:
         #print("No data found for the specified teams")
@@ -420,29 +427,31 @@ if __name__ == "__main__":
     try:
         results = get_top_performers("Atlanta Falcons", "Arizona Cardinals")
         
-        #print("Top Performers:")
-        #print("-" * 80)
+        print("Top Performers:")
+        print("-" * 80)
         
         # #print home team
         home_team = results["top_performers"]["hometeam"]
-        #print("Home Team_name:",home_team['team_name'])
+        print("Home Team_name:",home_team['team_name'])
+
+
         for performer in home_team["players"]:
-            #print(f"  Player: {performer['player_name']} ({performer['player_position']})")
-            #print(f"  Performance Score: {performer['performance_score']:.1f}")
-            #print(f"  Confidence: {performer['confidence_score']:.2f}")
-            # print("-" * 40)
-            pass
+            print(f"  Player: {performer['player_name']} ({performer['player_position']})")
+            print(f"  Performance Score: {performer['performance_score']:.1f}")
+            print(f"  Confidence: {performer['confidence_score']:.2f}")
+            print("-" * 40)
+            
         
         # Print away team
         away_team = results["top_performers"]["awayteam"]
-        # print("Away Team:", away_team['team_name'])
+        print("Away Team:", away_team['team_name'])
         for performer in away_team["players"]:
-            #print(f"  Player: {performer['player_name']} ({performer['player_position']})")
-            #print(f"  Performance Score: {performer['performance_score']:.1f}")
-            #print(f"  Confidence: {performer['confidence_score']:.2f}")
-            #print("-" * 40)
-            pass 
+            print(f"  Player: {performer['player_name']} ({performer['player_position']})")
+            print(f"  Performance Score: {performer['performance_score']:.1f}")
+            print(f"  Confidence: {performer['confidence_score']:.2f}")
+            print("-" * 40)
+            
             
     except Exception as e:
-        #print(f"Error running example: {e}")
+        print(f"Error running example: {e}")
         raise Exception(f"Error running example: {e}")
