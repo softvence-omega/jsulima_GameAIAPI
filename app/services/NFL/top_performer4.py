@@ -24,6 +24,48 @@ class NFLPerformanceAnalyzer:
             'forced_fumbles', 'fumble_recoveries', 'defensive_touchdowns'
         ]
     
+    def get_position_specific_stats(self, position: str, stats_used: Dict) -> Dict:
+        """Return only the stats relevant to the player's position"""
+        
+        # Position-specific stats
+        if position == 'QB':
+            position_stats = {
+                'passing_touchdowns_used': stats_used.get('passing_touchdowns', 0),
+                'interceptions_used': stats_used.get('interceptions', 0),
+                'total_touchdowns_used': stats_used.get('total_touchdowns', 0)
+            }
+        elif position == 'RB':
+            position_stats = {
+                'rushing_touchdowns_used': stats_used.get('rushing_touchdowns', 0),
+                'fumble_recoveries_used': stats_used.get('fumble_recoveries', 0),
+                'total_touchdowns_used': stats_used.get('total_touchdowns', 0)
+            }
+        elif position == 'WR':
+            position_stats = {
+                'receiving_yards_used': stats_used.get('receiving_yards', 0),
+                'receiving_touchdowns_used': stats_used.get('receiving_touchdowns', 0),
+                'fumble_recoveries_used': stats_used.get('fumble_recoveries', 0),
+                'total_touchdowns_used': stats_used.get('total_touchdowns', 0)
+            }
+        elif position == 'TE':
+            position_stats = {
+                'receiving_yards_used': stats_used.get('receiving_yards', 0),
+                'receiving_touchdowns_used': stats_used.get('receiving_touchdowns', 0),
+                'total_touchdowns_used': stats_used.get('total_touchdowns', 0)
+            }
+        elif position == 'LB':
+            position_stats = {
+                'interceptions_used': stats_used.get('interceptions', 0),
+                'total_tackles_used': stats_used.get('total_tackles', 0),
+                'sacks_used': stats_used.get('sacks', 0),
+                'forced_fumbles_used': stats_used.get('forced_fumbles', 0)
+            }
+        else:
+            # For unknown positions, return empty stats
+            position_stats = {}
+        
+        return position_stats
+    
     def calculate_performance_score(self, row: pd.Series) -> Tuple[float, Dict]:
         """Calculate performance score using standard fantasy football scoring"""
         
@@ -334,21 +376,21 @@ class NFLPerformanceAnalyzer:
             # Extract stats used from the stored dictionary
             stats_used = top_player.get('stats_used', {})
             
-            # Build result dictionary
-            result = {
+            # Build base result dictionary
+            base_result = {
                 'team_name': team_name,
                 "player_photo": f"{GOALSERVE_BASE_URL}{GOALSERVE_API_KEY}/football/usa?playerimage={int(top_player.get('player_id', '0'))}&json=1",
                 'player_name': top_player.get('name', 'Unknown'),
-                # 'player_status': top_player.get('player_status', 'roster'),
                 'player_position': position,
                 'performance_score': float(top_player.get('performance_score', 0)),
                 'confidence_score': float(confidence)
             }
             
-            # Add stats used
-            for col in self.stat_columns:
-                result[f"{col}_used"] = stats_used.get(col, 0)
-            result['total_touchdowns_used'] = stats_used.get('total_touchdowns', 0)
+            # Add position-specific stats only
+            position_specific_stats = self.get_position_specific_stats(position, stats_used)
+            
+            # Merge base result with position-specific stats
+            result = {**base_result, **position_specific_stats}
             
             top_performers.append(result)
         
