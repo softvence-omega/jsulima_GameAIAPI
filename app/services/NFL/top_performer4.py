@@ -379,7 +379,7 @@ class NFLPerformanceAnalyzer:
             # Build base result dictionary
             base_result = {
                 'team_name': team_name,
-                "player_photo": f"{GOALSERVE_BASE_URL}{GOALSERVE_API_KEY}/football/usa?playerimage={int(top_player.get('player_id', '0'))}&json=1",
+                "player_photo": f"{GOALSERVE_BASE_URL}{GOALSERVE_API_KEY}/football/usa?playerimage={int(top_player.get('id', '0'))}",
                 'player_name': top_player.get('name', 'Unknown'),
                 'player_position': position,
                 'performance_score': float(top_player.get('performance_score', 0)),

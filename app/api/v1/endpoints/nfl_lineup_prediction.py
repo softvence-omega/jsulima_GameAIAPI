@@ -90,7 +90,7 @@ def prepare_team_probabilities(team_id: int) -> pd.DataFrame:
     probs = predictor.predict_lineup(team_id)
     probs = probs.fillna(0)
     probs['player_id'] = probs['player_id'].astype('int64').astype('str')
-    probs['player_photo'] = probs['player_id'].apply(lambda pid: f"{GOALSERVE_BASE_URL}{GOALSERVE_API_KEY}/football/usa?playerimage={pid}&json=1")
+    probs['player_photo'] = probs['player_id'].apply(lambda pid: f"{GOALSERVE_BASE_URL}{GOALSERVE_API_KEY}/football/usa?playerimage={pid}")
 
     injured_players = get_injured_players(team_id)
     probs = probs[~probs["player_id"].isin(injured_players)]
