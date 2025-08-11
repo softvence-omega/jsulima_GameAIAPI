@@ -19,8 +19,8 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            cd /home/jsulima/GameAIAPI
+            cd /home/paperspace/jsulima/GameAIAPI
             git fetch origin
             git reset --hard origin/main
-            /home/jsulima/GameAIAPI/.venv/bin/pip install -r requirements.txt
+            /home/paperspace/jsulima/GameAIAPI/.venv/bin/pip install -r requirements.txt
             sudo systemctl restart jsulima
