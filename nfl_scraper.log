@@ -1,0 +1,260 @@
+2025-08-15 03:02:26,476 - INFO - Starting NFL data fetch from 2025-07-30 to 2025-12-31
+2025-08-15 03:02:26,476 - INFO - Created CSV file: app/data/NFL/nfl_games_data_history.csv
+2025-08-15 03:02:26,476 - INFO - Fetching data for 30.07.2025
+2025-08-15 03:02:27,702 - ERROR - Request failed for 30.07.2025: 500 Server Error: Internal Server Error for url: https://www.goalserve.com/getfeed/48cbeb0a39014dc2d6db08dd947404e4/football/nfl-scores?json=1&date=30.07.2025
+2025-08-15 03:02:27,702 - WARNING - Retry 1/3 for 30.07.2025
+2025-08-15 03:02:29,704 - INFO - Fetching data for 30.07.2025
+2025-08-15 03:02:30,030 - ERROR - Request failed for 30.07.2025: 500 Server Error: Internal Server Error for url: https://www.goalserve.com/getfeed/48cbeb0a39014dc2d6db08dd947404e4/football/nfl-scores?json=1&date=30.07.2025
+2025-08-15 03:02:30,030 - WARNING - Retry 2/3 for 30.07.2025
+2025-08-15 03:02:32,033 - INFO - Fetching data for 30.07.2025
+2025-08-15 03:02:32,308 - ERROR - Request failed for 30.07.2025: 500 Server Error: Internal Server Error for url: https://www.goalserve.com/getfeed/48cbeb0a39014dc2d6db08dd947404e4/football/nfl-scores?json=1&date=30.07.2025
+2025-08-15 03:02:33,316 - INFO - Fetching data for 31.07.2025
+2025-08-15 03:02:34,637 - INFO - Fetching data for 01.08.2025
+2025-08-15 03:02:34,916 - ERROR - Request failed for 01.08.2025: 500 Server Error: Internal Server Error for url: https://www.goalserve.com/getfeed/48cbeb0a39014dc2d6db08dd947404e4/football/nfl-scores?json=1&date=01.08.2025
+2025-08-15 03:02:34,917 - WARNING - Retry 1/3 for 01.08.2025
+2025-08-15 03:02:36,918 - INFO - Fetching data for 01.08.2025
+2025-08-15 03:02:37,194 - ERROR - Request failed for 01.08.2025: 500 Server Error: Internal Server Error for url: https://www.goalserve.com/getfeed/48cbeb0a39014dc2d6db08dd947404e4/football/nfl-scores?json=1&date=01.08.2025
+2025-08-15 03:02:37,194 - WARNING - Retry 2/3 for 01.08.2025
+2025-08-15 03:02:39,200 - INFO - Fetching data for 01.08.2025
+2025-08-15 03:02:40,945 - ERROR - Request failed for 01.08.2025: 500 Server Error: Internal Server Error for url: https://www.goalserve.com/getfeed/48cbeb0a39014dc2d6db08dd947404e4/football/nfl-scores?json=1&date=01.08.2025
+2025-08-15 03:02:41,954 - INFO - Fetching data for 02.08.2025
+2025-08-15 03:02:42,225 - ERROR - Request failed for 02.08.2025: 500 Server Error: Internal Server Error for url: https://www.goalserve.com/getfeed/48cbeb0a39014dc2d6db08dd947404e4/football/nfl-scores?json=1&date=02.08.2025
+2025-08-15 03:02:42,225 - WARNING - Retry 1/3 for 02.08.2025
+2025-08-15 03:02:44,232 - INFO - Fetching data for 02.08.2025
+2025-08-15 03:02:44,496 - ERROR - Request failed for 02.08.2025: 500 Server Error: Internal Server Error for url: https://www.goalserve.com/getfeed/48cbeb0a39014dc2d6db08dd947404e4/football/nfl-scores?json=1&date=02.08.2025
+2025-08-15 03:02:44,496 - WARNING - Retry 2/3 for 02.08.2025
+2025-08-15 03:02:46,513 - INFO - Fetching data for 02.08.2025
+2025-08-15 03:02:46,826 - ERROR - Request failed for 02.08.2025: 500 Server Error: Internal Server Error for url: https://www.goalserve.com/getfeed/48cbeb0a39014dc2d6db08dd947404e4/football/nfl-scores?json=1&date=02.08.2025
+2025-08-15 03:02:47,839 - INFO - Fetching data for 03.08.2025
+2025-08-15 03:02:48,117 - ERROR - Request failed for 03.08.2025: 500 Server Error: Internal Server Error for url: https://www.goalserve.com/getfeed/48cbeb0a39014dc2d6db08dd947404e4/football/nfl-scores?json=1&date=03.08.2025
+2025-08-15 03:02:48,118 - WARNING - Retry 1/3 for 03.08.2025
+2025-08-15 03:02:50,119 - INFO - Fetching data for 03.08.2025
+2025-08-15 03:02:50,391 - ERROR - Request failed for 03.08.2025: 500 Server Error: Internal Server Error for url: https://www.goalserve.com/getfeed/48cbeb0a39014dc2d6db08dd947404e4/football/nfl-scores?json=1&date=03.08.2025
+2025-08-15 03:02:50,392 - WARNING - Retry 2/3 for 03.08.2025
+2025-08-15 03:02:52,393 - INFO - Fetching data for 03.08.2025
+2025-08-15 03:02:53,706 - ERROR - Request failed for 03.08.2025: 500 Server Error: Internal Server Error for url: https://www.goalserve.com/getfeed/48cbeb0a39014dc2d6db08dd947404e4/football/nfl-scores?json=1&date=03.08.2025
+2025-08-15 03:02:54,712 - INFO - Fetching data for 04.08.2025
+2025-08-15 03:02:54,994 - ERROR - Request failed for 04.08.2025: 500 Server Error: Internal Server Error for url: https://www.goalserve.com/getfeed/48cbeb0a39014dc2d6db08dd947404e4/football/nfl-scores?json=1&date=04.08.2025
+2025-08-15 03:02:54,994 - WARNING - Retry 1/3 for 04.08.2025
+2025-08-15 03:02:56,998 - INFO - Fetching data for 04.08.2025
+2025-08-15 03:02:59,186 - ERROR - Request failed for 04.08.2025: 500 Server Error: Internal Server Error for url: https://www.goalserve.com/getfeed/48cbeb0a39014dc2d6db08dd947404e4/football/nfl-scores?json=1&date=04.08.2025
+2025-08-15 03:02:59,186 - WARNING - Retry 2/3 for 04.08.2025
+2025-08-15 03:03:01,190 - INFO - Fetching data for 04.08.2025
+2025-08-15 03:03:03,408 - ERROR - Request failed for 04.08.2025: 500 Server Error: Internal Server Error for url: https://www.goalserve.com/getfeed/48cbeb0a39014dc2d6db08dd947404e4/football/nfl-scores?json=1&date=04.08.2025
+2025-08-15 03:03:04,412 - INFO - Fetching data for 05.08.2025
+2025-08-15 03:03:04,699 - ERROR - Request failed for 05.08.2025: 500 Server Error: Internal Server Error for url: https://www.goalserve.com/getfeed/48cbeb0a39014dc2d6db08dd947404e4/football/nfl-scores?json=1&date=05.08.2025
+2025-08-15 03:03:04,699 - WARNING - Retry 1/3 for 05.08.2025
+2025-08-15 03:03:06,712 - INFO - Fetching data for 05.08.2025
+2025-08-15 03:03:06,977 - ERROR - Request failed for 05.08.2025: 500 Server Error: Internal Server Error for url: https://www.goalserve.com/getfeed/48cbeb0a39014dc2d6db08dd947404e4/football/nfl-scores?json=1&date=05.08.2025
+2025-08-15 03:03:06,977 - WARNING - Retry 2/3 for 05.08.2025
+2025-08-15 03:03:08,988 - INFO - Fetching data for 05.08.2025
+2025-08-15 03:03:09,328 - ERROR - Request failed for 05.08.2025: 500 Server Error: Internal Server Error for url: https://www.goalserve.com/getfeed/48cbeb0a39014dc2d6db08dd947404e4/football/nfl-scores?json=1&date=05.08.2025
+2025-08-15 03:03:10,330 - INFO - Fetching data for 06.08.2025
+2025-08-15 03:03:10,715 - ERROR - Request failed for 06.08.2025: 500 Server Error: Internal Server Error for url: https://www.goalserve.com/getfeed/48cbeb0a39014dc2d6db08dd947404e4/football/nfl-scores?json=1&date=06.08.2025
+2025-08-15 03:03:10,715 - WARNING - Retry 1/3 for 06.08.2025
+2025-08-15 03:03:12,724 - INFO - Fetching data for 06.08.2025
+2025-08-15 03:03:13,204 - ERROR - Request failed for 06.08.2025: 500 Server Error: Internal Server Error for url: https://www.goalserve.com/getfeed/48cbeb0a39014dc2d6db08dd947404e4/football/nfl-scores?json=1&date=06.08.2025
+2025-08-15 03:03:13,204 - WARNING - Retry 2/3 for 06.08.2025
+2025-08-15 03:03:15,212 - INFO - Fetching data for 06.08.2025
+2025-08-15 03:03:15,604 - ERROR - Request failed for 06.08.2025: 500 Server Error: Internal Server Error for url: https://www.goalserve.com/getfeed/48cbeb0a39014dc2d6db08dd947404e4/football/nfl-scores?json=1&date=06.08.2025
+2025-08-15 03:03:16,619 - INFO - Fetching data for 07.08.2025
+2025-08-15 03:03:17,185 - ERROR - Unexpected error in main: int() argument must be a string, a bytes-like object or a real number, not 'dict'
+2025-08-15 03:09:55,832 - INFO - Starting NFL data fetch from 2025-07-30 to 2025-12-31
+2025-08-15 03:09:55,832 - INFO - Fetching data for 30.07.2025
+2025-08-15 03:09:56,867 - ERROR - Request failed for 30.07.2025: 500 Server Error: Internal Server Error for url: https://www.goalserve.com/getfeed/48cbeb0a39014dc2d6db08dd947404e4/football/nfl-scores?json=1&date=30.07.2025
+2025-08-15 03:09:57,868 - INFO - Fetching data for 31.07.2025
+2025-08-15 03:09:59,231 - INFO - Fetching data for 01.08.2025
+2025-08-15 03:10:03,109 - ERROR - Request failed for 01.08.2025: 500 Server Error: Internal Server Error for url: https://www.goalserve.com/getfeed/48cbeb0a39014dc2d6db08dd947404e4/football/nfl-scores?json=1&date=01.08.2025
+2025-08-15 03:10:04,110 - INFO - Fetching data for 02.08.2025
+2025-08-15 03:10:10,421 - ERROR - Request failed for 02.08.2025: 500 Server Error: Internal Server Error for url: https://www.goalserve.com/getfeed/48cbeb0a39014dc2d6db08dd947404e4/football/nfl-scores?json=1&date=02.08.2025
+2025-08-15 03:10:11,437 - INFO - Fetching data for 03.08.2025
+2025-08-15 03:10:13,819 - ERROR - Request failed for 03.08.2025: 500 Server Error: Internal Server Error for url: https://www.goalserve.com/getfeed/48cbeb0a39014dc2d6db08dd947404e4/football/nfl-scores?json=1&date=03.08.2025
+2025-08-15 03:10:14,821 - INFO - Fetching data for 04.08.2025
+2025-08-15 03:10:15,118 - ERROR - Request failed for 04.08.2025: 500 Server Error: Internal Server Error for url: https://www.goalserve.com/getfeed/48cbeb0a39014dc2d6db08dd947404e4/football/nfl-scores?json=1&date=04.08.2025
+2025-08-15 03:10:16,124 - INFO - Fetching data for 05.08.2025
+2025-08-15 03:10:16,734 - ERROR - Request failed for 05.08.2025: 500 Server Error: Internal Server Error for url: https://www.goalserve.com/getfeed/48cbeb0a39014dc2d6db08dd947404e4/football/nfl-scores?json=1&date=05.08.2025
+2025-08-15 03:10:17,736 - INFO - Fetching data for 06.08.2025
+2025-08-15 03:10:18,333 - ERROR - Request failed for 06.08.2025: 500 Server Error: Internal Server Error for url: https://www.goalserve.com/getfeed/48cbeb0a39014dc2d6db08dd947404e4/football/nfl-scores?json=1&date=06.08.2025
+2025-08-15 03:10:19,336 - INFO - Fetching data for 07.08.2025
+2025-08-15 03:10:20,457 - ERROR - Unexpected error in main: int() argument must be a string, a bytes-like object or a real number, not 'dict'
+2025-08-15 03:15:25,920 - INFO - Starting NFL data fetch from 2025-07-30 to 2025-12-31
+2025-08-15 03:15:25,920 - INFO - Fetching data for 30.07.2025
+2025-08-15 03:15:31,876 - ERROR - Request failed for 30.07.2025: 500 Server Error: Internal Server Error for url: https://www.goalserve.com/getfeed/48cbeb0a39014dc2d6db08dd947404e4/football/nfl-scores?json=1&date=30.07.2025
+2025-08-15 03:15:32,887 - INFO - Fetching data for 31.07.2025
+2025-08-15 03:15:34,698 - INFO - Fetching data for 01.08.2025
+2025-08-15 03:15:34,974 - ERROR - Request failed for 01.08.2025: 500 Server Error: Internal Server Error for url: https://www.goalserve.com/getfeed/48cbeb0a39014dc2d6db08dd947404e4/football/nfl-scores?json=1&date=01.08.2025
+2025-08-15 03:15:35,976 - INFO - Fetching data for 02.08.2025
+2025-08-15 03:15:36,384 - ERROR - Request failed for 02.08.2025: 500 Server Error: Internal Server Error for url: https://www.goalserve.com/getfeed/48cbeb0a39014dc2d6db08dd947404e4/football/nfl-scores?json=1&date=02.08.2025
+2025-08-15 03:15:37,390 - INFO - Fetching data for 03.08.2025
+2025-08-15 03:15:38,058 - ERROR - Request failed for 03.08.2025: 500 Server Error: Internal Server Error for url: https://www.goalserve.com/getfeed/48cbeb0a39014dc2d6db08dd947404e4/football/nfl-scores?json=1&date=03.08.2025
+2025-08-15 03:15:39,062 - INFO - Fetching data for 04.08.2025
+2025-08-15 03:15:39,563 - ERROR - Request failed for 04.08.2025: 500 Server Error: Internal Server Error for url: https://www.goalserve.com/getfeed/48cbeb0a39014dc2d6db08dd947404e4/football/nfl-scores?json=1&date=04.08.2025
+2025-08-15 03:15:40,565 - INFO - Fetching data for 05.08.2025
+2025-08-15 03:15:41,423 - ERROR - Request failed for 05.08.2025: 500 Server Error: Internal Server Error for url: https://www.goalserve.com/getfeed/48cbeb0a39014dc2d6db08dd947404e4/football/nfl-scores?json=1&date=05.08.2025
+2025-08-15 03:15:42,424 - INFO - Fetching data for 06.08.2025
+2025-08-15 03:15:43,684 - ERROR - Request failed for 06.08.2025: 500 Server Error: Internal Server Error for url: https://www.goalserve.com/getfeed/48cbeb0a39014dc2d6db08dd947404e4/football/nfl-scores?json=1&date=06.08.2025
+2025-08-15 03:15:44,687 - INFO - Fetching data for 07.08.2025
+2025-08-15 03:15:45,027 - ERROR - Unexpected error in main: int() argument must be a string, a bytes-like object or a real number, not 'dict'
+2025-08-15 03:16:41,436 - INFO - Starting NFL data fetch from 2025-07-30 to 2025-12-31
+2025-08-15 03:16:41,436 - INFO - Fetching data for 30.07.2025
+2025-08-15 03:16:44,972 - ERROR - Request failed for 30.07.2025: 500 Server Error: Internal Server Error for url: https://www.goalserve.com/getfeed/48cbeb0a39014dc2d6db08dd947404e4/football/nfl-scores?json=1&date=30.07.2025
+2025-08-15 03:16:45,987 - INFO - Fetching data for 31.07.2025
+2025-08-15 03:16:47,293 - INFO - Fetching data for 01.08.2025
+2025-08-15 03:16:48,986 - ERROR - Request failed for 01.08.2025: 500 Server Error: Internal Server Error for url: https://www.goalserve.com/getfeed/48cbeb0a39014dc2d6db08dd947404e4/football/nfl-scores?json=1&date=01.08.2025
+2025-08-15 03:16:49,991 - INFO - Fetching data for 02.08.2025
+2025-08-15 03:16:50,268 - ERROR - Request failed for 02.08.2025: 500 Server Error: Internal Server Error for url: https://www.goalserve.com/getfeed/48cbeb0a39014dc2d6db08dd947404e4/football/nfl-scores?json=1&date=02.08.2025
+2025-08-15 03:16:51,270 - INFO - Fetching data for 03.08.2025
+2025-08-15 03:16:51,544 - ERROR - Request failed for 03.08.2025: 500 Server Error: Internal Server Error for url: https://www.goalserve.com/getfeed/48cbeb0a39014dc2d6db08dd947404e4/football/nfl-scores?json=1&date=03.08.2025
+2025-08-15 03:16:52,552 - INFO - Fetching data for 04.08.2025
+2025-08-15 03:16:52,818 - ERROR - Request failed for 04.08.2025: 500 Server Error: Internal Server Error for url: https://www.goalserve.com/getfeed/48cbeb0a39014dc2d6db08dd947404e4/football/nfl-scores?json=1&date=04.08.2025
+2025-08-15 03:16:53,827 - INFO - Fetching data for 05.08.2025
+2025-08-15 03:16:55,864 - ERROR - Request failed for 05.08.2025: 500 Server Error: Internal Server Error for url: https://www.goalserve.com/getfeed/48cbeb0a39014dc2d6db08dd947404e4/football/nfl-scores?json=1&date=05.08.2025
+2025-08-15 03:16:56,866 - INFO - Fetching data for 06.08.2025
+2025-08-15 03:17:01,031 - ERROR - Request failed for 06.08.2025: 500 Server Error: Internal Server Error for url: https://www.goalserve.com/getfeed/48cbeb0a39014dc2d6db08dd947404e4/football/nfl-scores?json=1&date=06.08.2025
+2025-08-15 03:17:02,033 - INFO - Fetching data for 07.08.2025
+2025-08-15 03:17:02,408 - ERROR - Unexpected error in main: int() argument must be a string, a bytes-like object or a real number, not 'dict'
+2025-08-15 03:24:28,187 - INFO - Starting NFL data fetch from 2025-01-01 to 2025-12-31
+2025-08-15 03:24:28,187 - INFO - Fetching data for 01.01.2025
+2025-08-15 03:24:31,158 - INFO - Fetching data for 02.01.2025
+2025-08-15 03:24:33,931 - INFO - Fetching data for 03.01.2025
+2025-08-15 03:24:35,213 - INFO - Fetching data for 04.01.2025
+2025-08-15 03:24:38,970 - INFO - Fetch interrupted by user
+2025-08-15 03:26:09,148 - ERROR - Unexpected error in main: month must be in 1..12
+2025-08-15 03:26:30,539 - INFO - Starting NFL data fetch from 2025-07-31 to 2025-08-31
+2025-08-15 03:26:30,539 - INFO - Fetching data for 31.07.2025
+2025-08-15 03:26:36,808 - INFO - SUCCESS: Found game data for 31.07.2025
+2025-08-15 03:26:36,808 - INFO - SUCCESS: Saved 1 game(s) for 31.07.2025
+2025-08-15 03:26:37,809 - INFO - Fetching data for 01.08.2025
+2025-08-15 03:26:41,361 - INFO - Fetching data for 02.08.2025
+2025-08-15 03:26:51,450 - INFO - Fetching data for 03.08.2025
+2025-08-15 03:26:54,740 - INFO - Fetching data for 04.08.2025
+2025-08-15 03:26:56,351 - INFO - Fetching data for 05.08.2025
+2025-08-15 03:26:57,639 - INFO - Fetching data for 06.08.2025
+2025-08-15 03:26:59,362 - INFO - Fetching data for 07.08.2025
+2025-08-15 03:26:59,668 - INFO - SUCCESS: Found game data for 07.08.2025
+2025-08-15 03:27:00,670 - INFO - Fetching data for 08.08.2025
+2025-08-15 03:27:00,965 - INFO - SUCCESS: Found game data for 08.08.2025
+2025-08-15 03:27:01,965 - INFO - Fetching data for 09.08.2025
+2025-08-15 03:27:02,333 - INFO - SUCCESS: Found game data for 09.08.2025
+2025-08-15 03:27:03,339 - INFO - Fetching data for 10.08.2025
+2025-08-15 03:27:04,347 - INFO - SUCCESS: Found game data for 10.08.2025
+2025-08-15 03:27:05,349 - INFO - Fetching data for 11.08.2025
+2025-08-15 03:27:06,623 - INFO - Fetching data for 12.08.2025
+2025-08-15 03:27:09,035 - INFO - Fetching data for 13.08.2025
+2025-08-15 03:27:10,474 - INFO - Fetching data for 14.08.2025
+2025-08-15 03:27:11,750 - INFO - Fetching data for 15.08.2025
+2025-08-15 03:27:12,012 - INFO - SUCCESS: Found game data for 15.08.2025
+2025-08-15 03:27:13,014 - INFO - Fetching data for 16.08.2025
+2025-08-15 03:27:13,276 - INFO - SUCCESS: Found game data for 16.08.2025
+2025-08-15 03:27:14,287 - INFO - Fetching data for 17.08.2025
+2025-08-15 03:27:14,622 - INFO - SUCCESS: Found game data for 17.08.2025
+2025-08-15 03:27:15,625 - INFO - Fetching data for 18.08.2025
+2025-08-15 03:27:18,882 - INFO - SUCCESS: Found game data for 18.08.2025
+2025-08-15 03:27:19,892 - INFO - Fetching data for 19.08.2025
+2025-08-15 03:27:21,172 - INFO - Fetching data for 20.08.2025
+2025-08-15 03:27:24,292 - INFO - Fetching data for 21.08.2025
+2025-08-15 03:27:25,567 - INFO - Fetching data for 22.08.2025
+2025-08-15 03:27:26,841 - INFO - Fetching data for 23.08.2025
+2025-08-15 03:27:28,867 - INFO - Fetching data for 24.08.2025
+2025-08-15 03:27:30,144 - INFO - Fetching data for 25.08.2025
+2025-08-15 03:27:32,287 - INFO - Fetching data for 26.08.2025
+2025-08-15 03:27:33,601 - INFO - Fetching data for 27.08.2025
+2025-08-15 03:27:34,877 - INFO - Fetching data for 28.08.2025
+2025-08-15 03:27:36,151 - INFO - Fetching data for 29.08.2025
+2025-08-15 03:27:36,422 - INFO - Progress: 93.8% (30/32 days) - Games saved: 1
+2025-08-15 03:27:37,424 - INFO - Fetching data for 30.08.2025
+2025-08-15 03:27:38,689 - INFO - Fetching data for 31.08.2025
+2025-08-15 03:27:40,381 - INFO - Progress: 100.0% (32/32 days) - Games saved: 1
+2025-08-15 03:27:41,383 - INFO - === FETCH COMPLETE ===
+2025-08-15 03:27:41,384 - INFO - Total days processed: 32
+2025-08-15 03:27:41,384 - INFO - Successful fetches (with games): 9
+2025-08-15 03:27:41,384 - INFO - No games days: 23
+2025-08-15 03:27:41,384 - INFO - Rate limited encounters: 0
+2025-08-15 03:27:41,384 - INFO - Failed fetches: 0
+2025-08-15 03:27:41,384 - INFO - Games saved to CSV: 1
+2025-08-15 03:27:41,384 - INFO - Success rate: 28.1%
+2025-08-15 03:27:41,384 - INFO - Data saved to: app/data/NFL/nfl_games_data_history.csv
+2025-08-15 03:31:42,962 - INFO - Starting NFL data fetch from 2025-08-07 to 2025-08-31
+2025-08-15 03:31:42,962 - INFO - Fetching data for 07.08.2025
+2025-08-15 03:31:44,021 - INFO - SUCCESS: Found game data for 07.08.2025
+2025-08-15 03:31:45,023 - INFO - Fetching data for 08.08.2025
+2025-08-15 03:31:45,295 - INFO - SUCCESS: Found game data for 08.08.2025
+2025-08-15 03:31:45,986 - INFO - Fetch interrupted by user
+2025-08-15 03:32:18,080 - INFO - Starting NFL data fetch from 2025-08-07 to 2025-08-31
+2025-08-15 03:32:18,080 - INFO - Fetching data for 07.08.2025
+2025-08-15 03:32:23,447 - INFO - SUCCESS: Found game data for 07.08.2025
+2025-08-15 03:32:24,455 - INFO - Fetching data for 08.08.2025
+2025-08-15 03:32:26,662 - INFO - Fetch interrupted by user
+2025-08-15 03:32:40,984 - INFO - Starting NFL data fetch from 2025-08-07 to 2025-08-31
+2025-08-15 03:32:40,984 - INFO - Fetching data for 07.08.2025
+2025-08-15 03:32:46,286 - INFO - SUCCESS: Found game data for 07.08.2025
+2025-08-15 03:32:47,301 - INFO - Fetching data for 08.08.2025
+2025-08-15 03:32:47,596 - INFO - SUCCESS: Found game data for 08.08.2025
+2025-08-15 03:32:47,769 - INFO - Fetch interrupted by user
+2025-08-15 03:34:34,528 - INFO - Starting NFL data fetch from 2025-08-07 to 2025-08-31
+2025-08-15 03:34:34,528 - INFO - Fetching data for 07.08.2025
+2025-08-15 03:34:36,155 - INFO - SUCCESS: Found game data for 07.08.2025
+2025-08-15 03:34:37,170 - INFO - Fetching data for 08.08.2025
+2025-08-15 03:34:38,693 - INFO - Fetch interrupted by user
+2025-08-15 03:39:08,244 - INFO - Starting NFL data fetch from 2025-01-01 to 2025-12-31
+2025-08-15 03:39:08,244 - INFO - Fetching data for 01.01.2025
+2025-08-15 03:39:10,503 - INFO - Fetching data for 02.01.2025
+2025-08-15 03:39:12,052 - INFO - Fetch interrupted by user
+2025-08-15 03:39:46,411 - INFO - Starting NFL data fetch from 2025-07-31 to 2025-08-31
+2025-08-15 03:39:46,411 - INFO - Fetching data for 31.07.2025
+2025-08-15 03:39:47,440 - INFO - SUCCESS: Found game data for 31.07.2025
+2025-08-15 03:39:47,440 - INFO - SUCCESS: Saved 1 game(s) for 31.07.2025
+2025-08-15 03:39:48,442 - INFO - Fetching data for 01.08.2025
+2025-08-15 03:39:49,717 - INFO - Fetching data for 02.08.2025
+2025-08-15 03:39:53,966 - INFO - Fetching data for 03.08.2025
+2025-08-15 03:39:55,248 - INFO - Fetching data for 04.08.2025
+2025-08-15 03:39:56,519 - INFO - Fetching data for 05.08.2025
+2025-08-15 03:39:57,793 - INFO - Fetching data for 06.08.2025
+2025-08-15 03:40:00,604 - INFO - Fetching data for 07.08.2025
+2025-08-15 03:40:01,881 - INFO - SUCCESS: Found game data for 07.08.2025
+2025-08-15 03:40:01,881 - INFO - SUCCESS: Saved 3 game(s) for 07.08.2025
+2025-08-15 03:40:02,894 - INFO - Fetching data for 08.08.2025
+2025-08-15 03:40:04,049 - INFO - SUCCESS: Found game data for 08.08.2025
+2025-08-15 03:40:04,049 - INFO - SUCCESS: Saved 3 game(s) for 08.08.2025
+2025-08-15 03:40:05,055 - INFO - Fetching data for 09.08.2025
+2025-08-15 03:40:06,429 - INFO - SUCCESS: Found game data for 09.08.2025
+2025-08-15 03:40:06,429 - INFO - SUCCESS: Saved 8 game(s) for 09.08.2025
+2025-08-15 03:40:07,441 - INFO - Fetching data for 10.08.2025
+2025-08-15 03:40:10,074 - INFO - SUCCESS: Found game data for 10.08.2025
+2025-08-15 03:40:10,074 - INFO - SUCCESS: Saved 2 game(s) for 10.08.2025
+2025-08-15 03:40:11,079 - INFO - Fetching data for 11.08.2025
+2025-08-15 03:40:12,348 - INFO - Fetching data for 12.08.2025
+2025-08-15 03:40:13,644 - INFO - Fetching data for 13.08.2025
+2025-08-15 03:40:14,914 - INFO - Fetching data for 14.08.2025
+2025-08-15 03:40:16,435 - INFO - Fetching data for 15.08.2025
+2025-08-15 03:40:17,134 - INFO - SUCCESS: Found game data for 15.08.2025
+2025-08-15 03:40:18,137 - INFO - Fetching data for 16.08.2025
+2025-08-15 03:40:19,435 - INFO - SUCCESS: Found game data for 16.08.2025
+2025-08-15 03:40:20,437 - INFO - Fetching data for 17.08.2025
+2025-08-15 03:40:22,613 - INFO - SUCCESS: Found game data for 17.08.2025
+2025-08-15 03:40:23,629 - INFO - Fetching data for 18.08.2025
+2025-08-15 03:40:23,910 - INFO - SUCCESS: Found game data for 18.08.2025
+2025-08-15 03:40:24,916 - INFO - Fetching data for 19.08.2025
+2025-08-15 03:40:26,469 - INFO - Fetching data for 20.08.2025
+2025-08-15 03:40:28,034 - INFO - Fetching data for 21.08.2025
+2025-08-15 03:40:31,737 - INFO - Fetching data for 22.08.2025
+2025-08-15 03:40:33,584 - INFO - Fetching data for 23.08.2025
+2025-08-15 03:40:37,514 - INFO - Fetching data for 24.08.2025
+2025-08-15 03:40:41,961 - INFO - Fetching data for 25.08.2025
+2025-08-15 03:40:45,825 - INFO - Fetching data for 26.08.2025
+2025-08-15 03:40:47,390 - INFO - Fetching data for 27.08.2025
+2025-08-15 03:40:48,679 - INFO - Fetching data for 28.08.2025
+2025-08-15 03:40:54,884 - INFO - Fetching data for 29.08.2025
+2025-08-15 03:40:56,276 - INFO - Progress: 93.8% (30/32 days) - Games saved: 17
+2025-08-15 03:40:57,286 - INFO - Fetching data for 30.08.2025
+2025-08-15 03:40:58,552 - INFO - Fetching data for 31.08.2025
+2025-08-15 03:41:00,696 - INFO - Progress: 100.0% (32/32 days) - Games saved: 17
+2025-08-15 03:41:01,707 - INFO - === FETCH COMPLETE ===
+2025-08-15 03:41:01,707 - INFO - Total days processed: 32
+2025-08-15 03:41:01,707 - INFO - Successful fetches (with games): 9
+2025-08-15 03:41:01,707 - INFO - No games days: 23
+2025-08-15 03:41:01,707 - INFO - Rate limited encounters: 0
+2025-08-15 03:41:01,707 - INFO - Failed fetches: 0
+2025-08-15 03:41:01,707 - INFO - Games saved to CSV: 17
+2025-08-15 03:41:01,707 - INFO - Success rate: 28.1%
+2025-08-15 03:41:01,707 - INFO - Data saved to: app/data/NFL/nfl_games_data_history.csv
