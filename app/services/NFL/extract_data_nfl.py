@@ -34,7 +34,7 @@ def generate_dates(start_date, end_date):
     """Generate list of dates from start_date to end_date, excluding March-July."""
     dates = []
     current_date = start_date
-    excluded_months = {3, 4, 5, 6, 7}  # March, April, May, June, July
+    excluded_months = {3, 4, 5, 6}  # March, April, May, June
     while current_date <= end_date:
         if current_date.month not in excluded_months:
             dates.append(current_date.strftime('%d.%m.%Y'))
