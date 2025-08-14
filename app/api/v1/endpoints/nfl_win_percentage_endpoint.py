@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 import pandas as pd
 import os
 from typing import List, Dict, Any
@@ -17,7 +17,7 @@ def get_team_win_percentages() -> List[Dict[str, Any]]:
         
         # Check if file exists
         if not os.path.exists(csv_file_path):
-            return {"error": "NFL games data file not found"}
+            raise HTTPException(status_code=404, detail="NFL games data file not found")
         
         # Read the CSV file
         df = pd.read_csv(csv_file_path)
@@ -113,5 +113,5 @@ def get_team_win_percentages() -> List[Dict[str, Any]]:
         return results
     
     except Exception as e:
-        return {"error": f"An error occurred while calculating win percentages: {str(e)}"}
+        raise HTTPException(status_code=500, detail=f"An error occurred while calculating win percentages: {str(e)}")
 
