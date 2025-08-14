@@ -1,0 +1,21 @@
+[project]
+name = "gameaiapi"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "apscheduler>=3.11.0",
+    "fastapi>=0.116.1",
+    "gunicorn>=23.0.0",
+    "matplotlib>=3.10.5",
+    "pandas>=2.3.1",
+    "python-dotenv>=1.1.1",
+    "requests>=2.32.4",
+    "scikit-learn>=1.7.1",
+    "seaborn>=0.13.2",
+    "tqdm>=4.67.1",
+    "uvicorn>=0.35.0",
+    "xgboost>=3.0.4",
+    "xmltodict>=0.14.2",
+]

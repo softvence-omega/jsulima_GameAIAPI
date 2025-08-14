@@ -87,7 +87,7 @@ def get_team_win_percentages() -> List[Dict[str, Any]]:
             
             # Calculate win percentage
             if total_games > 0:
-                win_percentage = (wins / total_games) * 100
+                win_percentage = (wins / total_games) 
                 avg_points_scored = stats['total_points_scored'] / total_games
                 avg_points_allowed = stats['total_points_allowed'] / total_games
             else:
