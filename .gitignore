@@ -23,7 +23,6 @@ instance/
 .env.*
 
 # IDEs and editors
-.vscode/
 .idea/
 
 # OS generated files
@@ -46,3 +45,7 @@ coverage.xml
 build/
 dist/
 *.egg-info/
+branch_structure.json
+temp_auto_push.bat
+temp_interactive_push.bat
+.gitignore
