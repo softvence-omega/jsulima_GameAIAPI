@@ -453,16 +453,19 @@ class NFLDataFetcher:
     def fetch_all_data(self, start_date: datetime = None, end_date: datetime = None, 
                       delay: float = 1.0, retry_attempts: int = 3) -> Dict:
         """Fetch all NFL data for 2025 and save to CSV"""
+
+        from datetime import datetime, date 
         if start_date is None:
-            start_date = datetime(2025, 7, 31)
+            start_date = datetime(2010, 1, 1)
         if end_date is None:
-            end_date = datetime(2025, 8, 31)
-        
-        logger.info(f"Starting NFL data fetch from {start_date.date()} to {end_date.date()}")
-        
+            end_date = date.today() - timedelta(days=1)
+
+        logger.info(f"Starting NFL data fetch from {start_date} to {end_date}")
+
         # Initialize CSV file
         self.initialize_csv()
         
+        print(type(start_date), type(end_date), start_date, end_date)
         total_days = (end_date - start_date).days + 1
         successful_fetches = 0
         failed_fetches = 0
@@ -474,7 +477,7 @@ class NFLDataFetcher:
         
         while current_date <= end_date:
             date_str = self.format_date(current_date)
-            
+
             # Retry logic - only retry on specific errors (429, network issues)
             data = None
             should_retry = True
@@ -576,7 +579,7 @@ class NFLDataFetcher:
         
         return summary
 
-def main():
+def run_game_data_collect_nfl():
     """Main function to run the NFL data fetcher"""
     
     try:
@@ -587,7 +590,7 @@ def main():
     except ImportError:
         # Fallback if config is not available
         BASE_URL = "https://www.goalserve.com/getfeed/YOUR_API_KEY/football/nfl-scores?json=1&date=09.02.2025"
-        OUTPUT_FILE = " .csv"
+        OUTPUT_FILE = "nfl_games_data_history.csv"
         logger.warning("Config not found, using fallback URL. Please update with your API key.")
     
     REQUEST_DELAY = 1.0  # seconds between requests
@@ -596,9 +599,21 @@ def main():
     fetcher = NFLDataFetcher(BASE_URL, OUTPUT_FILE)
     
     try:
+        import pandas as pd 
+        csv_file = pd.read_csv(OUTPUT_FILE)
+
+        try:
+            start_date = csv_file.iloc[-1]['date']
+            start_date = pd.to_datetime(start_date, format='%d.%m.%Y') + pd.DateOffset(days=1)
+            start_date = start_date.strftime('%Y-%m-%d')
+        except:
+            start_date = datetime(2010, 1, 1)
+
+        start_date = datetime.strptime(start_date, '%Y-%m-%d').date()
+
+
         # Fetch all data for 2025
-        summary = fetcher.fetch_all_data(delay=REQUEST_DELAY)
-        
+        summary = fetcher.fetch_all_data(start_date=start_date, delay=REQUEST_DELAY)
         # Print final summary
         print("\n" + "="*50)
         print("NFL DATA FETCH SUMMARY")
@@ -621,4 +636,4 @@ def main():
         print(f"An error occurred: {str(e)}")
 
 if __name__ == "__main__":
-    main()
+    run_game_data_collect_nfl()

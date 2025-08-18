@@ -9,10 +9,10 @@ from app.api.v1.endpoints import (
     nfl_win_predict,
     nfl_head_to_head,
     mlb_head_to_head,
-    mlb_batter_top_performer,
+    #mlb_batter_top_performer,
     mlb_games_prediction_endpoint,
-    mlb_top_performer_predictor,
-    mlb_pitcher_top_performer,
+    #mlb_top_performer_predictor,
+    #mlb_pitcher_top_performer,
     mlb_batter_pitcher_top_performer,
     mlb_win_percentage_endpoint,
     nfl_win_percentage_endpoint

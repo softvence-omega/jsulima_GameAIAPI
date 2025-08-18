@@ -12,6 +12,8 @@ ENV/
 .venv/
 .env
 .python-version
+player_images/
+
 
 # FastAPI specific
 instance/
