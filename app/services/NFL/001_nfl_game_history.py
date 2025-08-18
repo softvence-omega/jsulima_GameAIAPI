@@ -587,7 +587,7 @@ def main():
     except ImportError:
         # Fallback if config is not available
         BASE_URL = "https://www.goalserve.com/getfeed/YOUR_API_KEY/football/nfl-scores?json=1&date=09.02.2025"
-        OUTPUT_FILE = "nfl_games_data_history.csv"
+        OUTPUT_FILE = " .csv"
         logger.warning("Config not found, using fallback URL. Please update with your API key.")
     
     REQUEST_DELAY = 1.0  # seconds between requests
