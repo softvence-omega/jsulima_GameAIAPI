@@ -22,5 +22,5 @@ jobs:
             cd /home/paperspace/jsulima/GameAIAPI
             git fetch origin
             git reset --hard origin/main
-            /home/paperspace/jsulima/GameAIAPI/.venv/bin/pip install -r requirements.txt
+            /home/paperspace/jsulima/GameAIAPI/.venv/bin/uv sync
             sudo systemctl restart jsulima
