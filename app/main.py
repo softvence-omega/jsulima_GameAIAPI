@@ -1,4 +1,6 @@
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
+
 import os
 import uvicorn
 
@@ -22,6 +24,9 @@ from app.scheduler import start_scheduler
 
 
 app = FastAPI(title="GameAPI")
+app.mount("/player", StaticFiles(directory="player_images"), name="player_images")
+
+
 start_scheduler()
 
 # MLB

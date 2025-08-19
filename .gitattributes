@@ -3,3 +3,4 @@ app/data/MLB/pitching/pitching_data_combined.csv filter=lfs diff=lfs merge=lfs -
 app/data/MLB/batting/batting_data_combined.csv filter=lfs diff=lfs merge=lfs -text
 *.pkl filter=lfs diff=lfs merge=lfs -text
 *.joblib filter=lfs diff=lfs merge=lfs -text
+*.png filter=lfs diff=lfs merge=lfs -text

@@ -12,7 +12,7 @@ ENV/
 .venv/
 .env
 .python-version
-player_images/
+# player_images/
 
 
 # FastAPI specific

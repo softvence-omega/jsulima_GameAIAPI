@@ -10,6 +10,9 @@ DATA_DIR = os.path.join(BASE_DIR, "data")
 NFL_DIR= os.path.join(DATA_DIR, "NFL")
 NFL_MODEL_DIR = os.path.join(NFL_DIR, "models")
 
+
+IMAGE_URL = "http://127.0.0.1:8000/player/"
+
 # Create the data directory if it doesn't exist
 os.makedirs(DATA_DIR, exist_ok=True)
 URLS_NFL = [

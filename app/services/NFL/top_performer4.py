@@ -7,7 +7,7 @@ from sklearn.preprocessing import StandardScaler
 import warnings
 from typing import Dict, List, Tuple, Any
 import joblib
-from app.config import GOALSERVE_BASE_URL, GOALSERVE_API_KEY 
+from app.config import GOALSERVE_BASE_URL, GOALSERVE_API_KEY , IMAGE_URL
 
 # Suppress warnings for cleaner output
 warnings.filterwarnings('ignore', category=pd.errors.SettingWithCopyWarning)
@@ -379,7 +379,7 @@ class NFLPerformanceAnalyzer:
             # Build base result dictionary
             base_result = {
                 'team_name': team_name,
-                "player_photo": f"{GOALSERVE_BASE_URL}{GOALSERVE_API_KEY}/football/usa?playerimage={int(top_player.get('id', '0'))}",
+                "player_photo": f"{IMAGE_URL}{int(top_player.get('id', '0'))}.png",
                 'player_name': top_player.get('name', 'Unknown'),
                 'player_position': position,
                 'performance_score': float(top_player.get('performance_score', 0)),

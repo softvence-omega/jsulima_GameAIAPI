@@ -82,6 +82,7 @@ def get_injured_players(team_id: int) -> list[int]:
     except KeyError as e:
         raise KeyError(f"Unexpected API response structure: missing key {e}")
 
+from app.config import IMAGE_URL
 
 def prepare_team_probabilities(team_id: int) -> pd.DataFrame:
     """
@@ -90,7 +91,7 @@ def prepare_team_probabilities(team_id: int) -> pd.DataFrame:
     probs = predictor.predict_lineup(team_id)
     probs = probs.fillna(0)
     probs['player_id'] = probs['player_id'].astype('int64').astype('str')
-    probs['player_photo'] = probs['player_id'].apply(lambda pid: f"{GOALSERVE_BASE_URL}{GOALSERVE_API_KEY}/football/usa?playerimage={pid}")
+    probs['player_photo'] = probs['player_id'].apply(lambda pid: f"{IMAGE_URL}{pid}.png")
 
     injured_players = get_injured_players(team_id)
     probs = probs[~probs["player_id"].isin(injured_players)]
