@@ -22,5 +22,6 @@ jobs:
             cd /home/paperspace/jsulima/GameAIAPI
             git fetch origin
             git reset --hard origin/main
+            git lfs pull
             /home/paperspace/jsulima/GameAIAPI/.venv/bin/uv sync
             sudo systemctl restart jsulima
