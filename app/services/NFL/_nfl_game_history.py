@@ -605,12 +605,10 @@ def run_game_data_collect_nfl():
         try:
             start_date = csv_file.iloc[-1]['date']
             start_date = pd.to_datetime(start_date, format='%d.%m.%Y') + pd.DateOffset(days=1)
-            start_date = start_date.strftime('%Y-%m-%d')
-        except:
+        except Exception:
             start_date = datetime(2010, 1, 1)
-
-        start_date = datetime.strptime(start_date, '%Y-%m-%d').date()
-
+        
+        start_date = start_date.date()  # Convert to date object
 
         # Fetch all data for 2025
         summary = fetcher.fetch_all_data(start_date=start_date, delay=REQUEST_DELAY)
