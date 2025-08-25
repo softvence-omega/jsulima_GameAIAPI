@@ -19,7 +19,7 @@ router = APIRouter()
 from datetime import datetime 
 
 @router.post("/head-to-head-win-prediction")
-def head_to_head_win(n : int = 0):
+def head_to_head_win(n : int = 10):
     upcoming_games = upcoming_nfl_games.upcoming_games()
     
     today = datetime.today().date()

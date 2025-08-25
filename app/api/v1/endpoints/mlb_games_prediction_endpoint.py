@@ -71,7 +71,7 @@ def get_win_pred(n : int ):
 
 
 @router.post("/head-to-head-win-prediction")
-async def games_prediction_endpoint(n: int = 0):
+async def games_prediction_endpoint(n: int = 10):
     
     res = get_win_pred(n)
     
