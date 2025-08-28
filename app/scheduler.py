@@ -13,11 +13,11 @@ def start_scheduler():
     scheduler = BackgroundScheduler()
     
     # MLB
-    scheduler.add_job(run_batting_pitching_data_collect_final, CronTrigger(hour=22, minute=0))
-    scheduler.add_job(run_game_data_collect_final, CronTrigger(hour=22, minute=30))
+    scheduler.add_job(run_batting_pitching_data_collect_final, CronTrigger(hour=22, minute=0)) # 22:00
+    scheduler.add_job(run_game_data_collect_final, CronTrigger(hour=22, minute=30)) # 22:30
 
     # NFL
-    scheduler.add_job(extract_todays_match_data, CronTrigger(hour=0, minute=0))
+    scheduler.add_job(extract_todays_match_data, CronTrigger(hour=0, minute=0)) 
     scheduler.add_job(run_game_data_collect_nfl, CronTrigger(hour=0, minute=30))
 
 

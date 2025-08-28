@@ -25,6 +25,7 @@ from app.scheduler import start_scheduler
 
 app = FastAPI(title="GameAPI")
 app.mount("/player", StaticFiles(directory="player_images"), name="player_images")
+app.mount("/player-mlb", StaticFiles(directory="mlb_player_images"), name="mlb_player_images")
 
 
 start_scheduler()
@@ -45,6 +46,7 @@ app.include_router(nfl_top_performer_predictor.router, prefix="/predict/nfl", ta
 app.include_router(nfl_lineup_prediction.router, prefix="/predict/nfl", tags=["NFL"])
 app.include_router(nfl_head_to_head.router, prefix="/predict/nfl", tags=["NFL"])
 app.include_router(nfl_win_percentage_endpoint.router, prefix="/predict/nfl", tags=["NFL"])
+
 
 @app.get("/")
 async def root():

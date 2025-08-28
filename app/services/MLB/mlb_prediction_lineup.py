@@ -9,6 +9,8 @@ from sklearn.metrics import classification_report, mean_absolute_error, r2_score
 import joblib
 import os
 import requests
+from app.config import IMAGE_URL
+
 
 from app.api.v1.endpoints.nfl_lineup_prediction import get_injured_players
 from app.config import (
@@ -25,6 +27,7 @@ class MLBLineupPredictionService:
         self.df_rosters, self.df_stats, self.df_inj = self._load_data()
         self._preprocess_data()  # Centralized preprocessing for all data
         self.rf_bat, self.rf_pos = self._load_or_train_models()
+
 
     def _load_data(self):
         file_paths = {
@@ -63,7 +66,6 @@ class MLBLineupPredictionService:
         self.df_stats = df_stats
 
     def _train_batting_model(self):
-        #print("Training batting order model...")
         bat_feat_cols = [
             "on_base_percentage", "slugging_percentage", "batting_avg",
             "home_runs", "doubles", "triples", "stolen_bases", "strikeouts"
@@ -81,11 +83,9 @@ class MLBLineupPredictionService:
         rf_bat.fit(X_bat, y_bat)
 
         joblib.dump(rf_bat, self.bat_model_path)
-        #print(f"Batting model saved to {self.bat_model_path}")
         return rf_bat
 
     def _train_fielding_model(self):
-        #print("Training fielding position model...")
         df_rosters = self.df_rosters.copy()  # Use preprocessed data
 
         field_feat_cols = ["bats", "throws", "age", "height_in", "weight_int"]
@@ -119,7 +119,6 @@ class MLBLineupPredictionService:
         rf_pos.fit(X_pos, y_pos)
 
         joblib.dump(rf_pos, self.pos_model_path)
-        #print(f"Fielding model saved to {self.pos_model_path}")
         return rf_pos
 
     def _load_or_train_models(self):
@@ -137,13 +136,6 @@ class MLBLineupPredictionService:
 
         return rf_bat, rf_pos
 
-    # def get_injured_players(self, team_id):
-    #     url = f"{GOALSERVE_BASE_URL}{GOALSERVE_API_KEY}/baseball/{team_id}_injuries?json=1"
-    #     res = requests.get(url)
-    #     res.raise_for_status()
-    #
-    #     data = res.json()
-    #     return [player['@player_id'] for player in data['team']['report']]
 
     def get_starting_lineup(self):
         team_id_series = self.df_rosters.loc[self.df_rosters["team_name"] == self.team_name, "team_id"]
@@ -153,9 +145,9 @@ class MLBLineupPredictionService:
 
         team_roster = self.df_rosters[self.df_rosters["team_id"] == team_id]
 
-        injured_players = self.df_inj.loc[
-            self.df_inj["team_id"] == team_id, "player_name"].str.strip().dropna().unique()
-        team_roster = team_roster[~team_roster["player_name"].isin(injured_players)].copy()
+        # injured_players = self.df_inj.loc[
+        #     self.df_inj["team_id"] == team_id, "player_name"].str.strip().dropna().unique()
+        # team_roster = team_roster[~team_roster["player_name"].isin(injured_players)].copy()
 
         team_df = pd.merge(team_roster, self.df_stats, left_on="player_name", right_on="name", how="left")
 
@@ -176,22 +168,26 @@ class MLBLineupPredictionService:
         team_df["pred_bat_order"] = self.rf_bat.predict(team_df[bat_feat_cols])
         team_df["pred_position"] = self.rf_pos.predict(team_df[field_feat_cols])
 
-        # injured_players = get_injured_players(team_id)
-        # print(injured_players)
 
         required_positions = ["C", "1B", "2B", "3B", "SS", "LF", "CF", "RF"]
         lineup_rows = []
+
+
 
         pitchers = team_df[team_df["player_position"].isin(["SP", "RP"])]
         if not pitchers.empty:
             sp_candidates = pitchers[pitchers["player_position"] == "SP"]
             sp = sp_candidates.sort_values("earned_run_avg").iloc[0] if not sp_candidates.empty else \
                 pitchers.sort_values("earned_run_avg").iloc[0]
+            
+
+
             starter_prob = 100 / (1 + sp["earned_run_avg"]) if pd.notna(sp["earned_run_avg"]) else 50
             lineup_rows.append({
                 "team_name": self.team_name, "position_group": "Pitchers", "player_name": sp["player_name"],
                 "player_number": sp["player_number"], "player_position": sp["player_position"], "bats": sp["bats"],
-                "batting_spot": "—", "status": sp["status"], "starter_probability": starter_prob
+                "batting_spot": "—", "status": sp["status"], "starter_probability": starter_prob, 
+                'player_id': sp['player_id_x'],
             })
 
         position_players = team_df[~team_df["player_position"].isin(["SP", "RP"])].sort_values("pred_bat_order")
@@ -207,27 +203,36 @@ class MLBLineupPredictionService:
                 player_row = candidates.iloc[0]
                 chosen_ids.add(player_row.name)
                 starter_prob = 100 - ((player_row["pred_bat_order"] - 1) * 100 / 9)
+
                 lineup_rows.append({
                     "team_name": self.team_name, "position_group": "Fielders", "player_name": player_row["player_name"],
                     "player_number": player_row["player_number"], "player_position": pos, "bats": player_row["bats"],
                     "throws": player_row["throws"], "batting_spot": int(player_row["pred_bat_order"]),
-                    "status": player_row["status"], "starter_probability": starter_prob
+                    "status": player_row["status"], "starter_probability": starter_prob, 
+                    'player_id': player_row['player_id_x'],
                 })
 
         remaining = position_players[~position_players.index.isin(chosen_ids)]
         if not remaining.empty:
             dh_player = remaining.iloc[0]
             starter_prob = 100 - ((dh_player["pred_bat_order"] - 1) * 100 / 9)
+
             lineup_rows.append({
                 "team_name": self.team_name, "position_group": "Designated Hitter",
                 "player_name": dh_player["player_name"],
                 "player_number": dh_player["player_number"], "player_position": "DH", "bats": dh_player["bats"],
                 "throws": dh_player["throws"], "batting_spot": int(dh_player["pred_bat_order"]),
-                "status": dh_player["status"], "starter_probability": starter_prob
+                "status": dh_player["status"], "starter_probability": starter_prob,
+                'player_id': dh_player['player_id_x'],
             })
 
         df_lineup = pd.DataFrame(lineup_rows)
         # Add position numbers for the new schematic view
         pos_map = {"C": 2, "P": 1, "1B": 3, "2B": 4, "SS": 6, "3B": 5, "LF": 7, "CF": 8, "RF": 9, "DH": 0}
         df_lineup['position_number'] = df_lineup['player_position'].map(pos_map)
-        return df_lineup.replace({np.nan: None})
+
+        df_lineup = df_lineup.replace({np.nan: None})
+        df_lineup['player_photo'] = df_lineup['player_id'].apply(lambda pid: f"{IMAGE_URL[:-1]}-mlb/{pid}.png")
+        return df_lineup
+
+

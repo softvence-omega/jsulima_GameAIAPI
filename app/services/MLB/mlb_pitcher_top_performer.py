@@ -27,7 +27,7 @@ class PitcherPredictor:
         df = df.dropna(subset=numeric_cols, how='all')
 
         # Aggregate stats
-        agg_df = df.groupby(['team', 'name']).agg({
+        agg_df = df.groupby(['team', 'name', 'id']).agg({
             'innings_pitched': 'sum',
             'strikeouts': 'sum',
             'earned_runs': 'sum',
@@ -38,6 +38,7 @@ class PitcherPredictor:
             'earned_runs_average': 'mean',
             'pc_st': 'sum'
         }).reset_index()
+
 
         # Remove rows with NaN or inf in features
         features = [
@@ -81,6 +82,7 @@ class PitcherPredictor:
         X = agg_df[features]
         y = agg_df[target]
 
+
         # Train model
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
         self.model = XGBRegressor(n_estimators=25, learning_rate=0.1, random_state=42)
@@ -91,13 +93,16 @@ class PitcherPredictor:
         agg_df['predicted_score'] = self.model.predict(X)
         top_pitchers = agg_df.sort_values('predicted_score', ascending=False).groupby('team').head(1)
 
+
+
         # Final output
-        self.final_output = top_pitchers[['team', 'name', 'innings_pitched', 'strikeouts', 'earned_runs', 'predicted_score', 'performance_score', 'performance_score_scaled', 'confidence_score_scaled']]
+        self.final_output = top_pitchers[['id', 'team', 'name', 'innings_pitched', 'strikeouts', 'earned_runs', 'predicted_score', 'performance_score', 'performance_score_scaled', 'confidence_score_scaled']]
         self.final_output = self.final_output.rename(columns={
             'team': 'team_name',
             'name': 'player_name',
             'predicted_score': 'confidence_score'
         })
+
 
     def get_top_pitcher(self, home_team_name: str, away_team_name: str):
         if self.final_output is None:
@@ -113,6 +118,7 @@ class PitcherPredictor:
             result['away_team_pitcher'] = pitcher
         if not result:
             return None
+
         return result
 
 

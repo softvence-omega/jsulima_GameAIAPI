@@ -10,6 +10,7 @@ from app.services.MLB.mlb_pitcher_top_performer import PitcherPredictor
 from app.schemas.mlb_schemas import MLBTeams
 import joblib
 import os
+from app.config import IMAGE_URL
 
 
 router = APIRouter()
@@ -51,6 +52,7 @@ def pitcher_to_py(pitcher_dict):
         return None
     return {k: to_py(v) for k, v in pitcher_dict.items()}
 
+
 @router.post("/top_batter_pitcher", response_model=Dict[str, Any])
 async def get_top_batter_pitcher(request: MLBTeams):
     # Top Batter Home
@@ -64,7 +66,8 @@ async def get_top_batter_pitcher(request: MLBTeams):
             'runs': int(best_batsman_home['runs']),
             'hits': int(best_batsman_home['hits']),
             'performance_score': float(best_batsman_home['predicted_batting_average']),
-            'confidence_score': float(r2)
+            'confidence_score': float(r2),
+            'player_photo': f"{IMAGE_URL[:-1]}-mlb/{int(best_batsman_home['player_id'])}.png"
         }
     except ValueError as e:
         raise HTTPException(status_code=404, detail=f"Batter: {str(e)}")
@@ -80,7 +83,8 @@ async def get_top_batter_pitcher(request: MLBTeams):
             'runs': int(best_batsman_away['runs']),
             'hits': int(best_batsman_away['hits']),
             'performance_score': float(best_batsman_away['predicted_batting_average']),
-            'confidence_score': float(r2)
+            'confidence_score': float(r2),
+            'player_photo': f"{IMAGE_URL[:-1]}-mlb/{int(best_batsman_away['player_id'])}.png"
         }
     except ValueError as e:
         raise HTTPException(status_code=404, detail=f"Batter: {str(e)}")
@@ -92,6 +96,11 @@ async def get_top_batter_pitcher(request: MLBTeams):
 
     home_pitcher = pitcher_to_py(pitcher_result.get('home_team_pitcher'))
     away_pitcher = pitcher_to_py(pitcher_result.get('away_team_pitcher'))
+
+    if home_pitcher:
+        home_pitcher['player_photo'] = f"{IMAGE_URL[:-1]}-mlb/{home_pitcher['id']}.png"
+    if away_pitcher:
+        away_pitcher['player_photo'] = f"{IMAGE_URL[:-1]}-mlb/{away_pitcher['id']}.png"
 
     # Structure response
     response = {
