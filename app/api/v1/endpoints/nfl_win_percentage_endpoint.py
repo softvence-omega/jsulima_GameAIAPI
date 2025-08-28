@@ -2,6 +2,8 @@ from fastapi import APIRouter, HTTPException
 import pandas as pd
 import os
 from typing import List, Dict, Any
+from datetime import datetime
+
 
 router = APIRouter()
 
@@ -21,6 +23,35 @@ def get_team_win_percentages() -> List[Dict[str, Any]]:
         
         # Read the CSV file
         df = pd.read_csv(csv_file_path)
+        df = df.tail(1000)
+
+        df['date'] = pd.to_datetime(df['date'], format='%d.%m.%Y')
+
+        today = datetime.now()
+        month = datetime.now().month
+        year = datetime.now().year
+        day : int = datetime.now().day
+
+
+
+        if month == 8 and day <= 31:
+            start = datetime(year, 7, 31)
+            end = datetime(year, 8, 31)
+            df = df[(df['date'] >= start) & (df['date'] <= end)]
+        elif month >= 9 or month <= 7:
+            if month <= 12:
+                # i) Filter from 1 Sept to current date
+                start = datetime(today.year, 9, 1)
+                end = today
+                df = df[(df['date'] >= start) & (df['date'] <= end)]
+            
+            if month < 8:
+                # ii) Filter from previous year's Sept 1 to current date
+                start = datetime(today.year - 1, 9, 1)
+                end = today
+                df = df[(df['date'] >= start) & (df['date'] <= end)]
+
+
         
         # Initialize results dictionary
         team_stats = {}

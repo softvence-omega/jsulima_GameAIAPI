@@ -16,7 +16,34 @@ def get_team_win_percentages():
     model = joblib.load(MODEL_PATH)
     # Load the data
     data = pd.read_csv(GAMES_CSV_PATH)
-    data = data[(data['date'].str.endswith(str(current_year))) & (data['status'] == 'Final')]
+    #data = data[data['status'] == 'Final']
+
+
+    data['date'] = pd.to_datetime(data['date'], format='%d.%m.%Y')
+
+
+    today = datetime.now()
+    season_start = datetime(today.year, 3, 25)  # Approximate late March
+    season_end = datetime(today.year, 10, 1)    # Approximate early October
+
+
+
+    if season_start <= today <= season_end:
+        data = data[data['date'] >= season_start]
+    
+    else:
+            if today.month <= 12:
+                # i) Filter from 1 Sept to current date
+                start = datetime(today.year, 10, 1)
+                end = today
+                df = data[(data['date'] >= start) & (data['date'] <= end)]
+            
+            if today.month < 4:
+                # ii) Filter from previous year's Sept 1 to current date
+                start = datetime(today.year - 1, 10, 1)
+                end = today
+                df = data[(data['date'] >= start) & (data['date'] <= end)]
+
 
     # Create home perspective rows
     home_df = data[['home_team', 'away_team', 'home_score', 'away_score', 'home_hits', 'home_errors',
@@ -70,4 +97,6 @@ def get_team_win_percentages():
             'loss_count': int(loss_count),
             'average_score': float(team_games['team_score'].mean()) if total_matches > 0 else None
         })
-    return results 
+
+    results.sort(key=lambda x: x['win_count'], reverse=True)
+    return results
