@@ -108,7 +108,7 @@ def get_team_win_percentages() -> List[Dict[str, Any]]:
             })
         
         # Sort by win percentage (descending)
-        results.sort(key=lambda x: x['win_percentage'], reverse=True)
+        results.sort(key=lambda x: x['win_count'], reverse=True)
         
         return results
     
