@@ -128,7 +128,7 @@ def create_lineup_response(home_top_11: pd.DataFrame, away_top_11: pd.DataFrame)
 
 def get_best_11(team_id):
 
-    df = pd.read_csv(r'app\data\NFL\nfl_player_stats_test_with_positions.csv')
+    df = pd.read_csv(r'app/data/NFL/nfl_player_stats_test_with_positions.csv')
 
     filtered_df = df[df['team_id'] == team_id]
     filtered_df = filtered_df.tail(200)
