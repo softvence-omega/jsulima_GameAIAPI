@@ -172,9 +172,11 @@ def get_best_11(team_id):
 
 import numpy as np
 import json 
+from app.config import NFL_DIR
 
-PLAYER_INFO_PATH = r"app\data\NFL\nfl_all_players_info.json"
+PLAYER_INFO_PATH =  os.path.join(NFL_DIR, "nfl_all_players_info.json")
 PLAYER_INFO = pd.read_json(PLAYER_INFO_PATH)
+
 with open(PLAYER_INFO_PATH, 'r') as PLAYER_INFO:    
     players_data = json.load(PLAYER_INFO)
     
