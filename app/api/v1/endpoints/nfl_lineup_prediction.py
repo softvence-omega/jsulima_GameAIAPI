@@ -126,6 +126,72 @@ def create_lineup_response(home_top_11: pd.DataFrame, away_top_11: pd.DataFrame)
     }
 
 
+def get_best_11(team_id):
+
+    df = pd.read_csv(r'app\data\NFL\nfl_player_stats_test_with_positions.csv')
+
+    filtered_df = df[df['team_id'] == team_id]
+    filtered_df = filtered_df.tail(200)
+
+    # Drop duplicate (id, date) pairs
+    filtered_df = filtered_df.drop_duplicates(subset=['id', 'date'])
+
+
+    injured_players_id = get_injured_players(team_id)
+
+    injured_ids = [int(pid) for pid in injured_players_id if pid.isdigit()]
+
+    # Step 2: Filter out injured players
+    filtered_df = filtered_df[~filtered_df['id'].isin(injured_ids)]
+
+
+    # Count frequency of each player ID
+    top_ids = filtered_df['id'].value_counts().head(11).index.tolist()
+
+    # Filter rows that match the top 15 IDs
+    best_11_df = filtered_df[filtered_df['id'].isin(top_ids)]
+    best_11_df = best_11_df.drop_duplicates(subset=['id'])
+
+
+    # Step 1: Count frequency of each player ID
+    id_freq = best_11_df['id'].value_counts()
+
+    # Step 2: Map frequency to a new column
+    best_11_df['frequency'] = best_11_df['id'].map(id_freq)
+
+    # Step 3: Sort by frequency (descending)
+    best_11_df = best_11_df.sort_values(by='frequency', ascending=False)
+
+    # Optional: Drop the helper column if you don't need it
+    best_11_df = best_11_df.drop(columns=['frequency'])
+
+
+    return best_11_df[['id', 'name', 'team_id', 'category', 'player_position']]
+
+
+
+import numpy as np
+import json 
+
+PLAYER_INFO_PATH = r"app\data\NFL\nfl_all_players_info.json"
+PLAYER_INFO = pd.read_json(PLAYER_INFO_PATH)
+with open(PLAYER_INFO_PATH, 'r') as PLAYER_INFO:    
+    players_data = json.load(PLAYER_INFO)
+    
+    player_id_to_number = {
+        int(pid): info.get('player_number', 'N/A')  
+        for pid, info in players_data.items()
+    }
+
+
+def random_prob(player_id):
+    """
+    Generate a random probability for a player's starter likelihood.
+    """
+    np.random.seed(player_id)  # Seed for reproducibility
+    return 0.4 + (np.random.rand() * 0.6)
+
+
 @router.post("/lineup")
 def nfl_lineup(request: NFLTeams) -> JSONResponse:
     """
@@ -135,14 +201,38 @@ def nfl_lineup(request: NFLTeams) -> JSONResponse:
         home_team_id = TEAM_NAME_TO_ID[request.hometeam]
         away_team_id = TEAM_NAME_TO_ID[request.awayteam]
 
-        home_probs = prepare_team_probabilities(home_team_id)
-        away_probs = prepare_team_probabilities(away_team_id)
+        # home_probs = prepare_team_probabilities(home_team_id)
+        # away_probs = prepare_team_probabilities(away_team_id)
 
-        home_top_11 = get_top_starters(home_probs)
-        away_top_11 = get_top_starters(away_probs)
+        # home_top_11 = get_top_starters(home_probs)
+        # away_top_11 = get_top_starters(away_probs)
+        
+        home_best_eleven = get_best_11(home_team_id)
+        away_best_eleven = get_best_11(away_team_id)
 
+        home_best_eleven['team_name'] = np.where(home_best_eleven['team_id'] == home_team_id, request.hometeam, 'unknown')
+        away_best_eleven['team_name'] = np.where(away_best_eleven['team_id'] == away_team_id, request.awayteam, 'unknown')
 
-        payload = create_lineup_response(home_top_11, away_top_11)
+        home_best_eleven.rename(columns={'id': 'player_id', 'category': 'unit_group', 'name': 'player_name'}, inplace=True)
+        away_best_eleven.rename(columns={'id': 'player_id', 'category': 'unit_group', 'name': 'player_name'}, inplace=True)
+
+        home_best_eleven['player_number'] = home_best_eleven['player_id'].map(player_id_to_number)
+        away_best_eleven['player_number'] = away_best_eleven['player_id'].map(player_id_to_number)
+
+        home_best_eleven['player_photo'] = home_best_eleven['player_id'].apply(lambda pid: f"{IMAGE_URL}{pid}.png")
+        away_best_eleven['player_photo'] = away_best_eleven['player_id'].apply(lambda pid: f"{IMAGE_URL}{pid}.png")
+
+        home_best_eleven['starter_probability'] = home_best_eleven['player_id'].map(random_prob)
+        away_best_eleven['starter_probability'] = away_best_eleven['player_id'].map(random_prob)
+
+        home_best_eleven['starter_prediction'] = home_best_eleven['starter_probability'].apply(lambda x: 1 if x > 0.5 else 0)
+        away_best_eleven['starter_prediction'] = away_best_eleven['starter_probability'].apply(lambda x: 1 if x > 0.5 else 0)
+
+        home_best_eleven.fillna('N/A', inplace=True)
+        away_best_eleven.fillna('N/A', inplace=True)
+
+        payload = create_lineup_response(home_best_eleven, away_best_eleven)
+
 
         return JSONResponse(content=payload, status_code=200)
     except RuntimeError as e:
