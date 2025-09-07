@@ -230,8 +230,8 @@ def nfl_lineup(request: NFLTeams) -> JSONResponse:
         home_best_eleven['starter_prediction'] = home_best_eleven['starter_probability'].apply(lambda x: 1 if x > 0.5 else 0)
         away_best_eleven['starter_prediction'] = away_best_eleven['starter_probability'].apply(lambda x: 1 if x > 0.5 else 0)
 
-        home_best_eleven.fillna('N/A', inplace=True)
-        away_best_eleven.fillna('N/A', inplace=True)
+        home_best_eleven.fillna('0', inplace=True)
+        away_best_eleven.fillna('0', inplace=True)
 
         payload = create_lineup_response(home_best_eleven, away_best_eleven)
 
