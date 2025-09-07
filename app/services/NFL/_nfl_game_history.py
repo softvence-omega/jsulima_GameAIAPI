@@ -465,7 +465,6 @@ class NFLDataFetcher:
         # Initialize CSV file
         self.initialize_csv()
         
-        print(type(start_date), type(end_date), start_date, end_date)
         total_days = (end_date - start_date).days + 1
         successful_fetches = 0
         failed_fetches = 0
@@ -612,26 +611,12 @@ def run_game_data_collect_nfl():
 
         # Fetch all data for 2025
         summary = fetcher.fetch_all_data(start_date=start_date, delay=REQUEST_DELAY)
-        # Print final summary
-        print("\n" + "="*50)
-        print("NFL DATA FETCH SUMMARY")
-        print("="*50)
-        print(f"Total days processed: {summary['total_days_processed']}")
-        print(f"Successful fetches (with games): {summary['successful_fetches']}")
-        print(f"No games days: {summary['no_games_days']}")
-        print(f"Rate limited encounters: {summary['rate_limited_days']}")
-        print(f"Failed fetches: {summary['failed_fetches']}")
-        print(f"Total games saved: {summary['games_saved']}")
-        print(f"Success rate: {summary['success_rate']:.1f}%")
-        print(f"CSV file: {summary['output_file']}")
-        print("="*50)
+
         
     except KeyboardInterrupt:
         logger.info("Fetch interrupted by user")
-        print("\nFetch interrupted by user. Partial data may be available in CSV.")
     except Exception as e:
         logger.error(f"Unexpected error in main: {str(e)}")
-        print(f"An error occurred: {str(e)}")
 
 if __name__ == "__main__":
     run_game_data_collect_nfl()

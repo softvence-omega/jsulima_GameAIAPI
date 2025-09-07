@@ -443,9 +443,10 @@ class NFLTeamLineupImageGenerator:
             self._draw_teams()
             self._draw_team_labels()
             self.image.save(filename, "PNG", quality=95)
-            print(f"Image saved as {filename}")
+            # print(f"Image saved as {filename}")
         except Exception as e:
-            print(f"Error saving image: {e}")
+            # print(f"Error saving image: {e}")
+            pass 
 
 # Example usage:
 # generator = NFLTeamLineupImageGenerator(home_df, away_df)

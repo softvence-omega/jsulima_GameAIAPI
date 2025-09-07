@@ -207,28 +207,28 @@ class NFLPerformanceAnalyzer:
             # )
             merged_data = pd.read_csv('app/data/NFL/nfl_player_stats_test_with_positions.csv')
 
-            print("Merged Data Columns: ", merged_data.head(2))
+            # print("Merged Data Columns: ", merged_data.head(2))
             # Convert stat columns to numeric
             for col in self.stat_columns:
                 if col in merged_data.columns:
                     merged_data[col] = pd.to_numeric(merged_data[col], errors='coerce')
             
-            print("=" * 100)
+            # print("=" * 100)
             # Filter for target positions and teams
             home_data = merged_data[
                 (merged_data['player_position'].isin(self.positions)) & 
                 (merged_data['home_team_name'] == home_team)
             ].copy()
-            print("@" * 100)
+            # print("@" * 100)
 
             away_data = merged_data[
                 (merged_data['player_position'].isin(self.positions)) & 
                 (merged_data['away_team_name'] == away_team)
             ].copy()
 
-            print("Home Team Data:--------------------------------------------------------")
-            print(away_data.columns)
-            print("home_tdata: ", home_data.head(2))
+            # print("Home Team Data:--------------------------------------------------------")
+            # print(away_data.columns)
+            # print("home_tdata: ", home_data.head(2))
 
             # Remove duplicates
             home_data = home_data.drop_duplicates(subset=["name", "player_position"])
@@ -407,13 +407,13 @@ def get_top_performers(home_team_name: str, away_team_name: str) -> Dict[str, An
     Returns:
         Dictionary with the specified output format
     """
-    print("inside get_top_performers")
+    # print("inside get_top_performers")
     analyzer = NFLPerformanceAnalyzer()
     
     # Load and prepare data
     home_data, away_data = analyzer.load_and_prepare_data(home_team_name, away_team_name)
 
-    print("home_data: ", home_data)
+    # print("home_data: ", home_data)
     
     if home_data.empty and away_data.empty:
         #print("No data found for the specified teams")
@@ -469,31 +469,11 @@ if __name__ == "__main__":
     try:
         results = get_top_performers("Atlanta Falcons", "Arizona Cardinals")
         
-        print("Top Performers:")
-        print("-" * 80)
-        
         # #print home team
         home_team = results["top_performers"]["hometeam"]
-        print("Home Team_name:",home_team['team_name'])
 
-
-        for performer in home_team["players"]:
-            print(f"  Player: {performer['player_name']} ({performer['player_position']})")
-            print(f"  Performance Score: {performer['performance_score']:.1f}")
-            print(f"  Confidence: {performer['confidence_score']:.2f}")
-            print("-" * 40)
-            
-        
-        # Print away team
         away_team = results["top_performers"]["awayteam"]
-        print("Away Team:", away_team['team_name'])
-        for performer in away_team["players"]:
-            print(f"  Player: {performer['player_name']} ({performer['player_position']})")
-            print(f"  Performance Score: {performer['performance_score']:.1f}")
-            print(f"  Confidence: {performer['confidence_score']:.2f}")
-            print("-" * 40)
             
             
     except Exception as e:
-        print(f"Error running example: {e}")
         raise Exception(f"Error running example: {e}")

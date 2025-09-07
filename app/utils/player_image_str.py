@@ -38,5 +38,5 @@ if __name__ == "__main__":
                 with open(f"player_images/{player_id}.png", "wb") as img_file:
                     img_file.write(decoded_img)
             except:
-                print(f"Failed to fetch image for player {player_id}")
+                # print(f"Failed to fetch image for player {player_id}")
                 continue

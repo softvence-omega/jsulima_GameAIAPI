@@ -50,7 +50,7 @@ def fetch_nfl_data(date):
         response.raise_for_status()
         return response.text
     except requests.RequestException as e:
-        print(f"Error fetching data for {date}: {e}")
+        # print(f"Error fetching data for {date}: {e}")
         return None
 
 def parse_player_stats(player_elem, category, team_id, match_date, home_team_name, home_team_id, away_team_name, away_team_id):
@@ -314,7 +314,7 @@ def parse_xml_data(xml_data, date, csv_file):
         
         return len(all_stats)
     except ET.ParseError as e:
-        print(f"Error parsing XML for {date}: {e}")
+        # print(f"Error parsing XML for {date}: {e}")
         return 0
 
 def create_empty_csv(csv_file):
@@ -384,8 +384,6 @@ def main():
             total_records += records
         time.sleep(1)  
 
-    print(f"Data extraction complete. Total records saved: {total_records}")
-    print(f"Data saved to {csv_file}")
 
 def extract_todays_match_data():
     main()

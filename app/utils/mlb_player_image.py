@@ -46,6 +46,6 @@ if __name__ == "__main__":
             with open(f"mlb_player_images/{player_id}.png", mode="wb") as img_file:
                 img_file.write(decoded_img)
         except Exception as e:
-            print(f"Failed to fetch image for player {player_id}")
-            print(e)
+            # print(f"Failed to fetch image for player {player_id}")
+            # print(e)
             continue
