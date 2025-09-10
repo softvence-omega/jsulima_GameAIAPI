@@ -29,25 +29,28 @@ def get_future_matches():
 
     response = requests.get(url)
     if response.status_code == 200:
-        data = response.json()
-        ret = []
-        for matches in data['fixtures']['category']['matches']:
-            for match in _force_list(matches['match']):
+        try:
+            data = response.json()
+            ret = []
+            for matches in data['fixtures']['category']['matches']:
+                for match in _force_list(matches['match']):
 
-                info = {
-                    'date' : matches['@date'],
-                    'timezone' : matches['@timezone'],
-                    'seasonType' : matches['@seasonType'],
-                    'venue': match['@venue_name'],
-                    'formatted_date': match['@formatted_date'],
-                    'datetime_utc': match['@datetime_utc'],
-                    'hometeam' : match['hometeam']['@name'],
-                    'awayteam' : match['awayteam']['@name']
-                }
+                    info = {
+                        'date' : matches['@date'],
+                        'timezone' : matches['@timezone'],
+                        'seasonType' : matches['@seasonType'],
+                        'venue': match['@venue_name'],
+                        'formatted_date': match['@formatted_date'],
+                        'datetime_utc': match['@datetime_utc'],
+                        'hometeam' : match['hometeam']['@name'],
+                        'awayteam' : match['awayteam']['@name']
+                    }
 
-                ret.append(info)
-                
-        return ret
+                    ret.append(info)
+                    
+            return ret
+        except json.JSONDecodeError:
+            raise Exception("Failed to parse JSON response")
     else:
         raise Exception(f"Failed to fetch matches: {response.status_code} - {response.text}")
 
@@ -72,8 +75,9 @@ def get_win_pred(n : int ):
 
 @router.post("/head-to-head-win-prediction")
 async def games_prediction_endpoint(n: int = 10):
-    
-    res = get_win_pred(n)
-    
-    return res
+    try:
+        res = get_win_pred(n)
+        return res
+    except Exception as e:
+        raise Exception(f"Error fetching win predictions: {str(e)}")
 

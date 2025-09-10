@@ -56,7 +56,7 @@ def get_prediction(home_team: str, away_team: str):
             "losses": 0,
             "draws": 0
         }
-    filtered_df = filtered_df.tail(5)
+    filtered_df = filtered_df.tail(15)
     for index, row in filtered_df.iloc[::-1].iterrows():
         if row['home_team_name'] == home_team:
             if row['home_total_score'] > row['away_total_score']:
@@ -74,8 +74,15 @@ def get_prediction(home_team: str, away_team: str):
                 result["draws"] += 1
 
     total_games = len(filtered_df)
-    home_win_prob = round((result["wins"] / max(0.1, total_games) * 100), 1)
-    away_win_prob = round((result["losses"] / max(0.1, total_games) * 100), 1)
+    home_win_prob = round((result["wins"] / max(0.1, total_games) * 100), 1) 
+    away_win_prob = round(100-home_win_prob, 1)
+
+    if home_win_prob >= away_win_prob:
+        home_win_prob = int(home_win_prob * 0.9)
+        away_win_prob = 100 - home_win_prob
+    elif away_win_prob > home_win_prob:
+        away_win_prob = int(away_win_prob * 0.9)
+        home_win_prob = 100 - away_win_prob
 
     # Option 1: Random between 60–85
     confidence = random.randint(60, 85)
